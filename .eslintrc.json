@@ -1,0 +1,45 @@
+{
+	"env": {
+		"browser": true,
+		"es2021": true
+	},
+	"extends": [
+		"eslint:recommended",
+		"plugin:react/recommended",
+		"plugin:jsx-a11y/recommended",
+		"plugin:prettier/recommended",
+		"plugin:@typescript-eslint/eslint-recommended",
+		"plugin:@typescript-eslint/recommended",
+		"prettier"
+	],
+	"parser": "@typescript-eslint/parser",
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"ecmaVersion": 12,
+		"sourceType": "module"
+	},
+	"plugins": ["react", "@typescript-eslint", "react-hooks"],
+	"rules": {
+		"@typescript-eslint/interface-name-prefix": "off",
+		"@typescript-eslint/explicit-module-boundary-types": "off",
+		"@typescript-eslint/no-explicit-any": "warn",
+		"camelcase": "off",
+		"jsx-a11y/anchor-is-valid": ["error"],
+		"no-console": ["warn", { "allow": ["error"] }],
+		"no-alert": "error",
+		"no-use-before-define": "off",
+		"prettier/prettier": ["error"],
+		"react/prop-types": "off",
+		"react/self-closing-comp": [
+			"error",
+			{
+				"component": true,
+				"html": true
+			}
+		],
+		"react-hooks/exhaustive-deps": "warn",
+		"react/display-name": "off"
+	}
+}
