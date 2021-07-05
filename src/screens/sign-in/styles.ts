@@ -1,10 +1,12 @@
 import { StyleSheet } from 'react-native';
 
+import { theme } from '../../global/theme';
+
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: theme.color.background,
   },
   text: {
     width: '70%',
@@ -15,6 +17,7 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'left',
     fontSize: 30,
+    color: theme.color.font,
   },
   icon: {
     position: 'absolute',
@@ -26,6 +29,7 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 30,
     left: 60,
+    color: theme.color.font,
   },
   link: {
     color: '#1DA1F2',
