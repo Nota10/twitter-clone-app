@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { SignInButton } from '../../components/sign-in-button';
+import { SignInButton } from '../../components/SignInButton';
 import { styles } from './styles';
 import Icon from '../../../assets/icon_alt.png';
 
