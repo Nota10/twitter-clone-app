@@ -2,6 +2,7 @@ import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import COLORS from '../../global/colors';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -33,10 +34,17 @@ export function Home({ route, navigation }) {
   }, []);
 
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+    initialRouteName="Feed"
+    activeColor={COLORS.white}
+    inactiveColor={COLORS.lightPurple}
+    barStyle={{ backgroundColor: COLORS.darkPurple }}>
       <Tab.Screen
       name="Feed"
       children={()=><Feed navigation={navigation} user={route.params.user}/>}
+      options={{
+        tabBarLabel: 'Feed'
+      }}
       />
     </Tab.Navigator>
   );

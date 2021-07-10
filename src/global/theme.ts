@@ -5,7 +5,7 @@ export const theme = StyleSheet.create({
   button: {
     height: 45,
     width: '70%',
-    backgroundColor: COLORS.gold,
+    backgroundColor: COLORS.darkYellow,
     borderRadius: 80,
     justifyContent: 'center',
     alignItems: 'center'
