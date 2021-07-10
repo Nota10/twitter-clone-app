@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: theme.color.background,
+    backgroundColor: '#fff',
   },
   text: {
     width: '70%',
@@ -17,19 +17,13 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'left',
     fontSize: 30,
-    color: theme.color.font,
+    color: '#000',
   },
   icon: {
     position: 'absolute',
     top: 50,
     height: 50,
     width: 50,
-  },
-  bottomMsg: {
-    position: 'absolute',
-    bottom: 30,
-    left: 60,
-    color: theme.color.font,
   },
   link: {
     color: '#1DA1F2',

@@ -6,7 +6,7 @@ import { styles } from './styles';
 
 export function SignInButton() {
   return (
-    <RectButton style={styles.container} 
+    <RectButton style={theme.container} 
     onPress={() =>
       navigation.navigate('SignIn')
     }>

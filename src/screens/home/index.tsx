@@ -1,9 +1,12 @@
 import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { StatusBar } from 'expo-status-bar';
-import { Text, View } from 'react-native';
-import { homeStyles } from './styles';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+
+const Tab = createMaterialBottomTabNavigator();
+
+// Screens
+import { Feed } from '../Feed';
 
 const { API_URL } = process.env;
 
@@ -12,7 +15,7 @@ type Data = {
   login: string;
 };
 
-export function Home() {
+export function Home({ route, navigation }) {
   const [data, setData] = useState<Data | null>(null);
 
   useEffect(() => {
@@ -30,14 +33,11 @@ export function Home() {
   }, []);
 
   return (
-    <View style={homeStyles.container}>
-      <Text>
-        Bem vindo organização {data?.login} {'\n \n'}URL {data?.url} {'\n'}
-        diretamente da API do GitHub {'\n \n'}
-        Mais detalhes da resposta da API no console
-      </Text>
-
-      <StatusBar style="auto" />
-    </View>
+    <Tab.Navigator>
+      <Tab.Screen
+      name="Feed"
+      children={()=><Feed navigation={navigation} user={route.params.user}/>}
+      />
+    </Tab.Navigator>
   );
 }
