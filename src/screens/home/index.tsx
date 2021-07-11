@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { Alert, AsyncStorage, View, Text } from 'react-native';
 import axios from 'axios';
 import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs';
 import { AntDesign  } from '@expo/vector-icons';
@@ -8,6 +8,9 @@ import COLORS from '../../global/colors';
 
 // Screens
 import { Feed } from '../Feed';
+import { Explore } from '../Explore';
+import { RectButton } from 'react-native-gesture-handler';
+import { theme } from '../../global/theme';
 
 
 const Tab = createBottomTabNavigator ();
@@ -36,6 +39,35 @@ export function Home({ route, navigation }) {
     getData();
   }, []);
 
+  navigation.addListener('beforeRemove', (e) => {
+    // Prevent default behavior of leaving the screen
+    e.preventDefault();
+
+    console.log('OPA');
+
+    // Prompt the user before leaving the screen
+    Alert.alert(
+      'Tem certeza?',
+      'Você irá sair de sua conta e voltará para a tela inicial',
+      [
+        {
+          text: "Voltar",
+          style: "cancel",
+          onPress: () => {}
+        },
+        {
+          text: "Sair",
+          style: "default",
+          onPress: () => {
+            AsyncStorage.removeItem('email');
+            AsyncStorage.removeItem('password');
+            navigation.dispatch(e.data.action);
+          }
+        },
+      ]
+    )
+  });
+
   return (
     <Tab.Navigator
     initialRouteName="Feed"
@@ -55,7 +87,7 @@ export function Home({ route, navigation }) {
     }}>
       <Tab.Screen
       name="Feed"
-      children={()=><Feed navigation={navigation} user={route.params.user}/>}
+      children={()=><Feed user={route.params.user}/>}
       options={{
         tabBarLabel: '',
         tabBarIcon: ({ color, size }) => (
@@ -65,7 +97,7 @@ export function Home({ route, navigation }) {
       />
       <Tab.Screen
       name="Explore"
-      children={()=><Feed navigation={navigation} user={route.params.user}/>}
+      children={()=><Explore/>}
       options={{
         tabBarLabel: '',
         tabBarIcon: ({ color, size }) => (
@@ -89,7 +121,7 @@ export function Home({ route, navigation }) {
       options={{
         tabBarLabel: '',
         tabBarIcon: ({ color, size }) => (
-          <AntDesign  name="message1" color={color} size={size} />
+          <AntDesign  name="mail" color={color} size={size} />
         ),
       }}
       />

@@ -4,7 +4,7 @@ import React from 'react';
 import { Welcome }  from './src/screens/Welcome';
 import { SignUp }   from './src/screens/SignUp';
 import { SignIn }   from './src/screens/SignIn';
-import { Home }     from './src/screens/home';
+import { Main }     from './src/screens/Main';
 
 import { enableScreens } from 'react-native-screens';
 import { NavigationContainer } from '@react-navigation/native';
@@ -35,8 +35,8 @@ export default function App() {
           component={SignIn}
         />
         <Stack.Screen
-          name="Home"
-          component={Home}
+          name="Main"
+          component={Main}
         />
       </Stack.Navigator>
     </NavigationContainer>

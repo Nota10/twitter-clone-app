@@ -39,7 +39,7 @@ function submitLogin(navigation, email:String, password:String){
     await AsyncStorage.setItem('email',    JSON.stringify(email));
     await AsyncStorage.setItem('password', JSON.stringify(password));
     console.log(`Navigating`);
-    navigation.navigate('Home', { user: found });
+    navigation.navigate('Main', { user: found });
   });
 }
 
