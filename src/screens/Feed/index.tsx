@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { theme } from '../../global/theme';
 import COLORS from '../../global/colors';
 import { RectButton } from 'react-native-gesture-handler';
+import { AsyncStorage } from 'react-native';
 
 const { API_URL } = process.env;
 
@@ -16,7 +17,7 @@ type Data = {
 
 const Feed = ({navigation, user}) => {
   const [data, setData] = useState<Array<any>>([]);
-  const [modalVisible, setModalVisible] = useState<Boolean>(false);
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
@@ -57,37 +58,41 @@ const Feed = ({navigation, user}) => {
     getData();
   }, []);
 
+  const signOut = () => {
+    Alert.alert(
+      'Tem certeza?',
+      'Você irá sair de sua conta e voltará para a tela inicial',
+      [
+        {
+          text: "Voltar",
+          style: "cancel",
+        },
+        {
+          text: "Sair",
+          style: "default",
+          onPress: () => {
+            AsyncStorage.removeItem('email');
+            AsyncStorage.removeItem('password');
+            navigation.navigate('Welcome');
+          }
+        },
+      ]
+    )
+  }
+
   return (
     <View style={{...theme.container, backgroundColor:COLORS.darkestPurple }}>
       <SafeAreaView>
         <ScrollView contentContainerStyle={{ width: '100%', alignContent:'center', justifyContent:'center', backgroundColor:COLORS.darkestPurple}}>
           <View style={{width: '100%', alignItems:'center', borderTopWidth: 0, backgroundColor:COLORS.darkPurple, paddingBottom: 40, marginBottom: 10, elevation: 1}}>
             <Text style={{ ...theme.lead_text, marginTop: 50, fontSize: 24, color:COLORS.white }}>Bem-vindo {user.name}, aqui está o seu feed :)</Text>
-            <RectButton style={theme.button} onPress={() => setModalVisible(true)}>
+            <RectButton style={theme.button} onPress={() => { signOut() }}>
               <Text style={theme.button_text}>Sair</Text>
             </RectButton>
           </View>
           {data}
         </ScrollView>
       </SafeAreaView>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View style={{width: '100%', height:'100%', alignItems:'center', borderTopWidth: 0, backgroundColor:COLORS.darkestPurple, marginBottom: 10, elevation: 1}}>
-          <Text style={{ ...theme.lead_text, marginTop: 50, fontSize: 24, color:COLORS.white }}>Tem certeza de que deseja sair?</Text>
-          <RectButton style={{ ...theme.button, backgroundColor:COLORS.darkPurple}}>
-            <Text style={theme.button_text}>Sim, quero sair</Text>
-          </RectButton>
-          <RectButton style={{ ...theme.button, backgroundColor:COLORS.darkYellow, marginTop: 25}} onPress={() => setModalVisible(!modalVisible)}>
-            <Text style={theme.button_text}>Voltar</Text>
-          </RectButton>
-        </View>
-      </Modal>
     </View>
   );
 }
