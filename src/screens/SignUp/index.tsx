@@ -31,7 +31,7 @@ export function SignUp({ navigation }) {
           style={theme.input}
           onChangeText={onChangeEmail}
           placeholder="email@dominio.com"
-          placeholderTextColor={COLORS.lightPurple}
+          placeholderTextColor={COLORS.secondary}
           autoCompleteType="email"
         />
         <Text style={theme.input_label}>Senha</Text>
@@ -39,7 +39,7 @@ export function SignUp({ navigation }) {
           style={theme.input}
           onChangeText={onChangePassword}
           placeholder=""
-          placeholderTextColor={COLORS.lightPurple}
+          placeholderTextColor={COLORS.secondary}
           autoCompleteType="password"
           secureTextEntry={true}
         />
@@ -48,7 +48,7 @@ export function SignUp({ navigation }) {
           style={theme.input}
           onChangeText={onChangePassword}
           placeholder=""
-          placeholderTextColor={COLORS.lightPurple}
+          placeholderTextColor={COLORS.secondary}
           autoCompleteType="password"
           secureTextEntry={true}
         />

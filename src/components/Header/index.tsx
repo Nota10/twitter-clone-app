@@ -9,7 +9,7 @@ import { useNavigation } from '@react-navigation/native';
 export function Header({title}) {
   const navigation = useNavigation();
   return (
-    <View style={{display:'flex', flexDirection:'row', width:'100%', paddingHorizontal: 15, paddingVertical: 15, paddingTop: 45, backgroundColor:COLORS.darkPurple, borderBottomWidth: 1, borderBottomColor: COLORS.darkerPurple, alignItems:'center'}}>
+    <View style={{display:'flex', flexDirection:'row', width:'100%', paddingHorizontal: 15, paddingVertical: 15, paddingTop: 45, backgroundColor:COLORS.secondary_dark, borderBottomWidth: 1, borderBottomColor: COLORS.secondary_darker, alignItems:'center'}}>
         <View style={{width:'20%'}}>
           <Pressable onPress={() => {navigation.openDrawer();}}>
             <Image

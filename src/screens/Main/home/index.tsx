@@ -1,17 +1,15 @@
 import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react';
-import { Alert, AsyncStorage, View, Text } from 'react-native';
+import { Alert, View, Text } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import { createBottomTabNavigator  } from '@react-navigation/bottom-tabs';
 import { AntDesign  } from '@expo/vector-icons';
-import COLORS from '../../global/colors';
+import COLORS from '../../../global/colors';
 
 // Screens
-import { Feed } from '../Feed';
-import { Explore } from '../Explore';
-import { RectButton } from 'react-native-gesture-handler';
-import { theme } from '../../global/theme';
-
+import { Feed } from './Feed';
+import { Explore } from './Explore';
 
 const Tab = createBottomTabNavigator ();
 
@@ -22,7 +20,7 @@ type Data = {
   login: string;
 };
 
-export function Home({ route, navigation }) {
+export function Home({ route }) {
   const [data, setData] = useState<Data | null>(null);
 
   useEffect(() => {
@@ -72,17 +70,17 @@ export function Home({ route, navigation }) {
     <Tab.Navigator
     initialRouteName="Feed"
     tabBarOptions={{
-      inactiveTintColor: COLORS.lightPurple,
+      inactiveTintColor: COLORS.secondary,
       activeTintColor: COLORS.white,
-      activeBackgroundColor: COLORS.darkPurple,
-      inactiveBackgroundColor: COLORS.darkPurple,
+      activeBackgroundColor: COLORS.secondary_dark,
+      inactiveBackgroundColor: COLORS.secondary_dark,
       style: {
         height: 70,
         padding: 0,
         paddingTop: 10,
-        backgroundColor: COLORS.darkPurple,
+        backgroundColor: COLORS.secondary_dark,
         margin: 0,
-        borderTopColor: COLORS.darkestPurple,
+        borderTopColor: COLORS.secondary_darkest,
       }
     }}>
       <Tab.Screen
@@ -107,7 +105,7 @@ export function Home({ route, navigation }) {
       />
       <Tab.Screen
       name="Notifications"
-      children={()=><Feed navigation={navigation} user={route.params.user}/>}
+      children={()=><Feed user={route.params.user}/>}
       options={{
         tabBarLabel: '',
         tabBarIcon: ({ color, size }) => (
@@ -117,7 +115,7 @@ export function Home({ route, navigation }) {
       />
       <Tab.Screen
       name="Messages"
-      children={()=><Feed navigation={navigation} user={route.params.user}/>}
+      children={()=><Feed user={route.params.user}/>}
       options={{
         tabBarLabel: '',
         tabBarIcon: ({ color, size }) => (

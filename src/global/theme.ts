@@ -5,7 +5,7 @@ export const theme = StyleSheet.create({
   button: {
     height: 45,
     width: '70%',
-    backgroundColor: COLORS.darkYellow,
+    backgroundColor: COLORS.primary_dark,
     borderRadius: 80,
     justifyContent: 'center',
     alignItems: 'center'
@@ -49,7 +49,7 @@ export const theme = StyleSheet.create({
     fontSize: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: COLORS.lightPurple,
+    borderColor: COLORS.secondary,
     borderWidth: 2,
     borderRadius: 40,
     paddingVertical: 15,
@@ -57,7 +57,7 @@ export const theme = StyleSheet.create({
   },
 	container: {
 		flex: 1,
-		backgroundColor: COLORS.darkPurple,
+		backgroundColor: COLORS.secondary_dark,
 		alignItems: 'center',
     justifyContent: 'flex-start'
 	},
@@ -68,6 +68,6 @@ export const theme = StyleSheet.create({
     color: COLORS.white,
   },
   link: {
-    color: COLORS.yellow
+    color: COLORS.primary
   }
 });

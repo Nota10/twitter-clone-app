@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { View, Text, Image, TextInput, Alert } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import { theme } from '../../global/theme';
 import COLORS from '../../global/colors';
@@ -21,43 +21,37 @@ const showAlert = (title:string, body:string) =>
     ]
   );
 
-function submitLogin(navigation, email:String, password:String){
-  if(!email) { return showAlert('Ops!', 'Insira um e-mail válido:\nSincere@april.biz\nShanna@melissa.tv\nNathan@yesenia.net\nJulianne.OConner@kory.org');}
-  /* Emails for testing
-  /     - Sincere@april.biz
-  /     - Shanna@melissa.tv
-  /     - Nathan@yesenia.net
-  /     - Julianne.OConner@kory.org
-  */
-  console.log(`Attempt to login with email:${email}`);
-  fetch(`https://jsonplaceholder.typicode.com/users/?email=${email}`)
-  .then(response => response.json())
-  .then(async json => {
-    let found = json[0];
-    if(!found.username) { return console.log('Login failed'); }
-    console.log(`Login successfull with user ${found.username}`)
-    await AsyncStorage.setItem('email',    JSON.stringify(email));
-    await AsyncStorage.setItem('password', JSON.stringify(password));
-    console.log(`Navigating`);
-    navigation.navigate('Main', { user: found });
-  });
-}
-
-async function attempLocalLogin(navigation){
-  try{
-    const localEmail = await AsyncStorage.getItem('email');
-    const localPassword = await AsyncStorage.getItem('password');
-    if(localEmail && localPassword){
-      submitLogin(navigation, JSON.parse(localEmail), JSON.parse(localPassword))
-    }
-  }catch(error){
-    console.log(error);
-  }
-}
-
 export function SignIn({ navigation }) {
   const [email, onChangeEmail] = React.useState(null);
   const [password, onChangePassword] = React.useState(null);
+  
+
+  const submitLogin = async (email:String, password:String) => {
+    if(!email) { return Alert.alert('Ops!', 'Insira um e-mail válido:\nSincere@april.biz\nShanna@melissa.tv\nNathan@yesenia.net\nJulianne.OConner@kory.org'); }
+    fetch(`https://jsonplaceholder.typicode.com/users/?email=${email}`)
+    .then(response => response.json())
+    .then(async json => {
+      let found = json[0];
+      if(!found.username) { return console.log('Login failed'); }
+      console.log(`Login successfull with user ${found.username}`)
+      await AsyncStorage.setItem('email',    JSON.stringify(email));
+      await AsyncStorage.setItem('password', JSON.stringify(password));
+      console.log(`Navigating`);
+      navigation.navigate('Main', { user: found });
+    });
+  }
+  
+  const attempLocalLogin = async () => {
+    try{
+      const localEmail = await AsyncStorage.getItem('email');
+      const localPassword = await AsyncStorage.getItem('password');
+      if(localEmail && localPassword){
+        submitLogin(JSON.parse(localEmail), JSON.parse(localPassword))
+      }
+    }catch(error){
+      console.log(error);
+    }
+  }
 
   attempLocalLogin(navigation);
 
@@ -78,7 +72,7 @@ export function SignIn({ navigation }) {
           style={theme.input}
           onChangeText={onChangeEmail}
           placeholder="email@dominio.com"
-          placeholderTextColor={COLORS.lightPurple}
+          placeholderTextColor={COLORS.secondary}
           defaultValue="Sincere@april.biz"
           autoCompleteType="email"
         />
@@ -87,7 +81,7 @@ export function SignIn({ navigation }) {
           style={theme.input}
           onChangeText={onChangePassword}
           placeholder=""
-          placeholderTextColor={COLORS.lightPurple}
+          placeholderTextColor={COLORS.secondary}
           autoCompleteType="password"
           secureTextEntry={true}
         />

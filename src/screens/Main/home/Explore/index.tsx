@@ -3,11 +3,11 @@ import 'react-native-gesture-handler';
 import axios from 'axios';
 import { SafeAreaView, ScrollView, Text, View, Image,  Alert, Pressable } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { theme } from '../../global/theme';
-import COLORS from '../../global/colors';
-import { Header } from '../../components/Header';
+import { theme } from '../../../../global/theme';
+import COLORS from '../../../../global/colors';
+import { Header } from '../../../../components/Header';
 
-import { Tweet } from '../../components/Tweet';
+import { Tweet } from '../../../../components/Tweet';
 
 const Explore = () => {
   const [data, setData] = useState<Array<any>>([<Text style={{color: COLORS.white, padding:25}}>Carregando...</Text>]);
@@ -39,10 +39,10 @@ const Explore = () => {
   }, []);
 
   return (
-    <View style={{...theme.container, backgroundColor:COLORS.darkestPurple }}>
+    <View style={{...theme.container, backgroundColor:COLORS.secondary_darkest }}>
       <Header title='Explorar' />
       <SafeAreaView>
-        <ScrollView contentContainerStyle={{ width: '100%', alignContent:'center', justifyContent:'center', backgroundColor:COLORS.darkestPurple}}>
+        <ScrollView contentContainerStyle={{ width: '100%', alignContent:'center', justifyContent:'center', backgroundColor:COLORS.secondary_darkest}}>
           {data}
         </ScrollView>
       </SafeAreaView>

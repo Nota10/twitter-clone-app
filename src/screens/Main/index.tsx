@@ -1,13 +1,15 @@
 import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react';
-import { Alert, AsyncStorage, View } from 'react-native';
+import { Alert, View } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import { AntDesign  } from '@expo/vector-icons';
 import COLORS from '../../global/colors';
 
 // Screens
-import { Home } from '../home';
+import { Home } from './home';
+import { Profile } from './Profile';
 
 
 const Drawer = createDrawerNavigator();
@@ -19,8 +21,9 @@ type Data = {
   login: string;
 };
 
-export function Main({ route, navigation }) {
+export function Main({ route }) {
   const [data, setData] = useState<Data | null>(null);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const getData = async () => {
@@ -94,15 +97,15 @@ export function Main({ route, navigation }) {
   return (
     <Drawer.Navigator
     drawerStyle={{
-      backgroundColor: COLORS.darkerPurple,
+      backgroundColor: COLORS.secondary_darker,
       width: 240,
       paddingTop: 60,
       height:'100%'
     }}
     drawerContent={CustomDrawerContent}
     drawerContentOptions={{
-      activeTintColor: COLORS.darkerPurple,
-      activeBackgroundColor: COLORS.darkPurple,
+      activeTintColor: COLORS.secondary_darker,
+      activeBackgroundColor: COLORS.secondary_dark,
       labelStyle: {
         fontSize: 22,
         color: COLORS.white,
@@ -110,21 +113,21 @@ export function Main({ route, navigation }) {
     }}>
       <Drawer.Screen
         name="Home"
-        options={{ drawerLabel: 'Início', headerTintColor: COLORS.lightPurple,
+        options={{ drawerLabel: 'Início', headerTintColor: COLORS.secondary,
         drawerIcon: ({ color, size }) => (
           <AntDesign  name="home" color={color} size={size} style={{paddingLeft: 15, color: COLORS.white}} />
         ),
         }}
-        children={()=><Home navigation={navigation} route={route}/>}
+        children={()=><Home route={route}/>}
       />
       <Drawer.Screen
         name="Profile"
-        options={{ drawerLabel: 'Perfil', headerTintColor: COLORS.lightPurple,
+        options={{ drawerLabel: 'Perfil', headerTintColor: COLORS.secondary,
         drawerIcon: ({ color, size }) => (
           <AntDesign  name="user" color={color} size={size} style={{paddingLeft: 15, color: COLORS.white}} />
         ),
         }}
-        children={()=><Home navigation={navigation} route={route}/>}
+        children={()=><Profile route={route} />}
       />
     </Drawer.Navigator>
   );
