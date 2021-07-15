@@ -1,19 +1,19 @@
 import { StyleSheet } from 'react-native';
+import { colors } from '../../global/colors';
 
 export const styles = StyleSheet.create({
   container: {
-    height: 45,
-    width: '70%',
-    backgroundColor: '#1DA1F2',
-    borderRadius: 80,
-    justifyContent: 'center',
+    flexDirection: 'row',
     alignItems: 'center',
+    width: '100%',
+    paddingHorizontal: 15,
+    paddingVertical: 15,
+    paddingTop: 45,
+    backgroundColor: colors.secondaryDark,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.secondaryDarker,
   },
-  text: {
-    color: '#fff',
-    fontSize: 20,
-    fontWeight: 'bold',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+  imageContainer: { width: '20%' },
+  image: { width: 35, height: 35 },
+  title: { fontWeight: 'bold', fontSize: 25, color: colors.white },
 });

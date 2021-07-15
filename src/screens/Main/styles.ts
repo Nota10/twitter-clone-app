@@ -1,10 +1,11 @@
 import { StyleSheet } from 'react-native';
+import { colors } from '../../global/colors';
 
-export const homeStyles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#fff',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
+export const mainStyles = StyleSheet.create({
+  drawer: {
+    backgroundColor: colors.secondaryDarker,
+    width: 240,
+    paddingTop: 60,
+    height: '100%',
+  },
 });

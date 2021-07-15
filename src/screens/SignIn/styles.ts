@@ -1,37 +1,70 @@
 import { StyleSheet } from 'react-native';
 
-import { theme } from '../../global/theme';
+import { colors } from '../../global/colors';
 
-export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-  text: {
+export const signInStyles = StyleSheet.create({
+  button: {
+    height: 45,
     width: '70%',
-    marginTop: 250,
-    marginBottom: 30,
+    backgroundColor: colors.primaryDark,
+    borderRadius: 80,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  buttonText: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: colors.white,
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  inputWrapper: {
+    width: '70%',
+    marginTop: 65,
+    marginBottom: 25,
+  },
+  inputLabel: {
+    marginBottom: 5,
     justifyContent: 'center',
     alignItems: 'center',
     fontWeight: 'bold',
     textAlign: 'left',
-    fontSize: 30,
-    color: '#1DA1F2',
+    fontSize: 20,
+    color: colors.white,
   },
-  icon: {
-    position: 'absolute',
-    top: 50,
-    height: 50,
-    width: 50,
+  input: {
+    marginTop: 5,
+    marginBottom: 15,
+    color: colors.white,
+    fontSize: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: colors.secondary,
+    borderWidth: 2,
+    borderRadius: 40,
+    paddingVertical: 15,
+    paddingHorizontal: 25,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: colors.secondaryDark,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
   },
   bottomMsg: {
     position: 'absolute',
     bottom: 30,
     left: 60,
-    color: '#000',
+    color: colors.white,
   },
   link: {
-    color: '#1DA1F2',
+    color: colors.primary,
   },
+  logoContainer: {
+    width: 65,
+    height: 80,
+    alignItems: 'center',
+    marginTop: 125,
+  },
+  spinnerText: { color: colors.primaryDark },
 });

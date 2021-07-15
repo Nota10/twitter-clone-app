@@ -1,14 +1,22 @@
 import 'react-native-gesture-handler';
 
 import axios from 'axios';
-import { SafeAreaView, ScrollView, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { theme } from '../../../global/theme';
-import COLORS from '../../../global/colors';
 import { Header } from '../../../components/Header';
+import { profileStyles } from './styles';
 
-const Profile = ({ route }) => {
-  const [data, setData] = useState<Array<any>>([<Text style={{color: COLORS.white, padding:25}}>Carregando...</Text>]);
+type User = {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+  phone: string;
+  website: string;
+};
+
+const Profile: React.FC = () => {
+  const [data, setData] = useState<User>({} as User);
 
   useEffect(() => {
     const getData = async () => {
@@ -16,28 +24,10 @@ const Profile = ({ route }) => {
         //const { data } = await axios.get(`${API_URL}/orgs/Nota10`);
         // setData(data);
         console.log('\nFetching posts...');
-        const { data } = await axios.get(`https://jsonplaceholder.typicode.com/users/${route.params.user.id}`);
-        var profile = [(
-          <View key={`profile`} style={{display:'flex', height:'80%', width:'100%', justifyContent:'space-evenly', flexDirection:'column', padding:'50', backgroundColor:COLORS.secondary_dark}}>
-            <View>            
-              <Text style={{ fontSize: 18, color: COLORS.white, fontWeight:'bold'}}>Nome:</Text>
-              <Text style={{ fontSize: 16, color: COLORS.white}}>{data.name} </Text>
-            <View>
-            </View>
-              <Text style={{ fontSize: 18, color: COLORS.white, fontWeight:'bold'}}>Email:</Text>
-              <Text style={{ fontSize: 16, color: COLORS.white}}>{data.email} </Text>
-            <View>
-            </View>
-              <Text style={{ fontSize: 18, color: COLORS.white, fontWeight:'bold'}}>Telefone:</Text>
-              <Text style={{ fontSize: 16, color: COLORS.white}}>{data.phone} </Text>
-            <View>
-            </View>
-              <Text style={{ fontSize: 18, color: COLORS.white, fontWeight:'bold'}}>Website:</Text>
-              <Text style={{ fontSize: 16, color: COLORS.white}}>{data.website} </Text>
-            </View>
-          </View>
-        )];
-        setData(profile);
+        const { data } = await axios.get<User>(
+          `https://jsonplaceholder.typicode.com/users/1`
+        );
+        setData(data);
       } catch (error) {
         console.log(error);
       }
@@ -47,11 +37,24 @@ const Profile = ({ route }) => {
   }, []);
 
   return (
-    <View style={{...theme.container, backgroundColor:COLORS.secondary_darkest }}>
-      <Header title='Perfil' />
-      {data}
+    <View style={profileStyles.container}>
+      <Header title="Perfil" />
+      {Object.keys(data).length > 0 && (
+        <View style={profileStyles.dataContainer}>
+          <View>
+            <Text style={profileStyles.dataLabel}>Nome:</Text>
+            <Text style={profileStyles.dataValue}>{data.name}</Text>
+            <Text style={profileStyles.dataLabel}>Email:</Text>
+            <Text style={profileStyles.dataValue}>{data.email}</Text>
+            <Text style={profileStyles.dataLabel}>Telefone:</Text>
+            <Text style={profileStyles.dataValue}>{data.phone}</Text>
+            <Text style={profileStyles.dataLabel}>Website:</Text>
+            <Text style={profileStyles.dataValue}>{data.website}</Text>
+          </View>
+        </View>
+      )}
     </View>
   );
-}
+};
 
-export {Profile};
+export { Profile };

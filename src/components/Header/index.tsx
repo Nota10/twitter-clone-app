@@ -1,24 +1,29 @@
-import 'react-native-gesture-handler';
 import React from 'react';
-import { Pressable, Text, View, Image } from 'react-native';
-import { RectButton } from 'react-native-gesture-handler';
-import { styles } from './styles';
-import COLORS from '../../global/colors';
-import { useNavigation } from '@react-navigation/native';
 
-export function Header({title}) {
+import { DrawerState } from 'react-native-gesture-handler';
+import { Pressable, Text, View, Image } from 'react-native';
+import { useNavigation, DrawerActions } from '@react-navigation/native';
+
+import { styles } from './styles';
+import logo from '../../../assets/logo.png';
+
+type HeaderProps = {
+  title: string;
+};
+
+export function Header({ title }: HeaderProps) {
   const navigation = useNavigation();
+
   return (
-    <View style={{display:'flex', flexDirection:'row', width:'100%', paddingHorizontal: 15, paddingVertical: 15, paddingTop: 45, backgroundColor:COLORS.secondary_dark, borderBottomWidth: 1, borderBottomColor: COLORS.secondary_darker, alignItems:'center'}}>
-        <View style={{width:'20%'}}>
-          <Pressable onPress={() => {navigation.openDrawer();}}>
-            <Image
-              style={{ width: 35, height: 35}}
-              source={require('../../../assets/logo.png')}
-            />
-          </Pressable>
-        </View>
-        <Text style={{ fontWeight: 'bold', fontSize: 25, color:COLORS.white }}>{title}</Text>
+    <View style={styles.container}>
+      <View style={styles.imageContainer}>
+        <Pressable
+          onPress={() => navigation.dispatch(DrawerActions.toggleDrawer())}
+        >
+          <Image style={styles.image} source={logo} />
+        </Pressable>
       </View>
+      <Text style={styles.title}>{title}</Text>
+    </View>
   );
 }

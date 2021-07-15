@@ -1,19 +1,37 @@
 import { StyleSheet } from 'react-native';
+import { colors } from '../../global/colors';
 
-export const styles = StyleSheet.create({
-  container: {
-    height: 45,
-    width: '70%',
-    backgroundColor: '#1DA1F2',
-    borderRadius: 80,
-    justifyContent: 'center',
+export const tweetStyles = StyleSheet.create({
+  rootContainer: {
+    flex: 1,
     alignItems: 'center',
+    justifyContent: 'flex-start',
+    backgroundColor: colors.secondaryDark,
+    paddingVertical: 25,
+    paddingHorizontal: 15,
+    borderColor: colors.secondaryDarkest,
+    borderTopWidth: 1,
   },
-  text: {
-    color: '#fff',
-    fontSize: 20,
-    fontWeight: 'bold',
-    justifyContent: 'center',
-    alignItems: 'center',
+  container: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    alignContent: 'flex-start',
+  },
+  contentContainer: { display: 'flex', flexDirection: 'column', width: '80%' },
+  contentContainerRows: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+  },
+  textUserName: { fontWeight: 'bold', fontSize: 20, color: colors.white },
+  textUserTag: { fontSize: 18, color: colors.secondary },
+  textBody: { fontSize: 18, color: colors.white, marginBottom: 5 },
+  textHashtags: { fontSize: 18, color: colors.primary },
+  iconsContainer: {
+    flexDirection: 'row',
+    width: '80%',
+    marginTop: 15,
+    justifyContent: 'space-between',
   },
 });

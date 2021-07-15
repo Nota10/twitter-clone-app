@@ -2,35 +2,38 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import { AntDesign } from '@expo/vector-icons';
 import { Text, View, Image } from 'react-native';
-import { theme } from '../../global/theme';
-import COLORS from '../../global/colors';
+import { colors } from '../../global/colors';
+import { tweetStyles } from './styles';
+import logo from '../../../assets/logo.png';
 
-export function Tweet({ post }) {
+export function Tweet({ post }: any) {
   return (
-    <View style={{ ...theme.container, backgroundColor:COLORS.secondary_dark, paddingVertical: 25, paddingHorizontal: 15, borderColor:COLORS.secondary_darkest, borderTopWidth:1}}>
-      <View style={{display:'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'flex-start', alignContent:'flex-start'}}>
-        <View style={{width:'20%'}}>
-        <Image
-          style={{ width: 50, height: 50, borderRadius: 100}}
-          source={('avatarUrl' in post) ? ({ uri: post.avatarUrl }) : require('../../../assets/logo.png')}
-        />
+    <View style={tweetStyles.rootContainer}>
+      <View style={tweetStyles.container}>
+        <View style={{ width: '20%' }}>
+          <Image
+            style={{ width: 50, height: 50, borderRadius: 100 }}
+            source={'avatarUrl' in post ? { uri: post.avatarUrl } : logo}
+          />
         </View>
-        <View style={{display:'flex', flexDirection:'column', width:'80%'}}>
-          <View style={{display:'flex', flexDirection:'row', alignItems:'flex-end'}}>
-            <Text style={{ fontWeight: 'bold', fontSize: 20, color:COLORS.white }}>
-              {('userName' in post) ? post.userName : 'Francis'}&nbsp;
+        <View style={tweetStyles.contentContainer}>
+          <View style={tweetStyles.contentContainerRows}>
+            <Text style={tweetStyles.textUserName}>
+              {'userName' in post ? post.userName : 'Francis'}&nbsp;
             </Text>
-            <Text style={{ fontSize: 18, color:COLORS.secondary }}>
-              {('userTag' in post) ? post.userTag : `@User_${post.userId}`} • 1h
+            <Text style={tweetStyles.textUserTag}>
+              {'userTag' in post ? post.userTag : `@User_${post.userId}`} • 1h
             </Text>
           </View>
-          <Text style={{ fontSize: 18, color:COLORS.white, marginBottom: 5}}>{post.body}</Text>
-          <Text style={{ fontSize: 18, color:COLORS.primary}}>#Bergamota #OvoFrito #Hashtag</Text>
-          <View style={{display:'flex', flexDirection:'row', width:'80%', marginTop:15, justifyContent:'space-between'}}>
-            <AntDesign  name="message1" color={COLORS.white} size={22} />
-            <AntDesign  name="sync" color={COLORS.white} size={22} />
-            <AntDesign  name="frowno" color={COLORS.white} size={22} />
-            <AntDesign  name="sharealt" color={COLORS.white} size={22} />
+          <Text style={tweetStyles.textBody}>{post.body}</Text>
+          <Text style={tweetStyles.textHashtags}>
+            #Bergamota #OvoFrito #Hashtag
+          </Text>
+          <View style={tweetStyles.iconsContainer}>
+            <AntDesign name="message1" color={colors.white} size={22} />
+            <AntDesign name="sync" color={colors.white} size={22} />
+            <AntDesign name="frowno" color={colors.white} size={22} />
+            <AntDesign name="sharealt" color={colors.white} size={22} />
           </View>
         </View>
       </View>

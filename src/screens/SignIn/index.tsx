@@ -1,99 +1,94 @@
 import 'react-native-gesture-handler';
-import React from 'react';
-import { View, Text, Image, TextInput, Alert } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TextInput, Alert } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
-import AsyncStorage from '@react-native-community/async-storage';
+import { useNavigation } from '@react-navigation/native';
+import Spinner from 'react-native-loading-spinner-overlay';
 
-import { theme } from '../../global/theme';
-import COLORS from '../../global/colors';
+import { api } from '../../services/api';
+
+import { colors } from '../../global/colors';
 
 import SvgLogo from '../../components/Icons/logo';
+import { signInStyles } from './styles';
 
-const showAlert = (title:string, body:string) =>
-  Alert.alert(
-    title,
-    body,
-    [
-      {
-        text: "Ok",
-        style: "default",
-      },
-    ]
-  );
+const showAlert = (title: string, body: string) =>
+  Alert.alert(title, body, [
+    {
+      text: 'Ok',
+      style: 'default',
+    },
+  ]);
 
-export function SignIn({ navigation }) {
-  const [email, onChangeEmail] = React.useState(null);
-  const [password, onChangePassword] = React.useState(null);
-  
+export function SignIn() {
+  const navigation = useNavigation();
 
-  const submitLogin = async (email:String, password:String) => {
-    if(!email) { return Alert.alert('Ops!', 'Insira um e-mail válido:\nSincere@april.biz\nShanna@melissa.tv\nNathan@yesenia.net\nJulianne.OConner@kory.org'); }
-    fetch(`https://jsonplaceholder.typicode.com/users/?email=${email}`)
-    .then(response => response.json())
-    .then(async json => {
-      let found = json[0];
-      if(!found.username) { return console.log('Login failed'); }
-      console.log(`Login successfull with user ${found.username}`)
-      await AsyncStorage.setItem('email',    JSON.stringify(email));
-      await AsyncStorage.setItem('password', JSON.stringify(password));
-      console.log(`Navigating`);
-      navigation.navigate('Main', { user: found });
-    });
-  }
-  
-  const attempLocalLogin = async () => {
-    try{
-      const localEmail = await AsyncStorage.getItem('email');
-      const localPassword = await AsyncStorage.getItem('password');
-      if(localEmail && localPassword){
-        submitLogin(JSON.parse(localEmail), JSON.parse(localPassword))
-      }
-    }catch(error){
-      console.log(error);
+  const [email, setEmail] = useState('hey@email.com');
+  const [password, setPassword] = useState('123123');
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const submitLogin = async (email: string, password: string) => {
+    try {
+      setIsLoading(true);
+      const { data } = await api.post('/auth/login', { email, password });
+      console.log('data: ', data);
+
+      navigation.navigate('Main');
+    } catch (error) {
+      showAlert('Dados incorretos', 'Verifique novamente');
+    } finally {
+      setIsLoading(true);
     }
-  }
-
-  attempLocalLogin(navigation);
+  };
 
   return (
-    <View style={ { ...theme.container, flex: 1 } }>
-      <View style={{
-        width: 65,
-        height: 80,
-        alignItems: 'center',
-        marginTop: 125
-      }}
-      >
+    <View style={signInStyles.container}>
+      <Spinner
+        visible={isLoading}
+        textContent="Carregando..."
+        textStyle={signInStyles.spinnerText}
+      />
+      <View style={signInStyles.logoContainer}>
         <SvgLogo />
       </View>
-      <View style={theme.input_wrapper}>
-        <Text style={theme.input_label}>E-mail</Text>
+      <View style={signInStyles.inputWrapper}>
+        <Text style={signInStyles.inputLabel}>E-mail</Text>
         <TextInput
-          style={theme.input}
-          onChangeText={onChangeEmail}
+          style={signInStyles.input}
+          onChangeText={text => setEmail(text)}
           placeholder="email@dominio.com"
-          placeholderTextColor={COLORS.secondary}
-          defaultValue="Sincere@april.biz"
+          placeholderTextColor={colors.secondary}
+          defaultValue={email}
           autoCompleteType="email"
         />
-        <Text style={theme.input_label}>Senha</Text>
+        <Text style={signInStyles.inputLabel}>Senha</Text>
         <TextInput
-          style={theme.input}
-          onChangeText={onChangePassword}
-          placeholder=""
-          placeholderTextColor={COLORS.secondary}
+          style={signInStyles.input}
+          onChangeText={text => setPassword(text)}
+          placeholder="Sua senha"
+          placeholderTextColor={colors.secondary}
           autoCompleteType="password"
+          defaultValue={password}
           secureTextEntry={true}
         />
       </View>
       <RectButton
-        style={theme.button}
-        onPress={() => {submitLogin(navigation, email, password)}}
+        style={signInStyles.button}
+        onPress={() => {
+          submitLogin(email, password);
+        }}
       >
-          <Text style={theme.button_text}>Entrar</Text>
+        <Text style={signInStyles.buttonText}>Entrar</Text>
       </RectButton>
-      <Text style={theme.bottomMsg}>
-        Não possui conta? <Text style={theme.link} onPress={() => navigation.navigate('SignUp')}>Registrar-se</Text>
+      <Text style={signInStyles.bottomMsg}>
+        Não possui conta?{' '}
+        <Text
+          style={signInStyles.link}
+          onPress={() => navigation.navigate('SignUp')}
+        >
+          Registrar-se
+        </Text>
       </Text>
     </View>
   );

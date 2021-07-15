@@ -1,26 +1,41 @@
-const colors = {
-    primary_darkest:    '#ff9500',
-    primary_dark:       '#ffc000',
-    primary:            '#ffd500',
-    secondary_darkest:  '#3A0061',
-    secondary_darker:   '#590094',
-    secondary_dark:     '#7800c7',
-    secondary:          '#c86bfa',
-    white:              '#fff',
-    black:              '#000'
-}
+type Colors = {
+  primaryDarkest: string;
+  primaryDark: string;
+  primary: string;
+  secondaryDarkest: string;
+  secondaryDarker: string;
+  secondaryDark: string;
+  secondary: string;
+  white: string;
+  black: string;
+  blue: string;
+};
+
+const colors: Colors = {
+  primaryDarkest: '#ff9500',
+  primaryDark: '#ffc000',
+  primary: '#ffd500',
+  secondaryDarkest: '#3A0061',
+  secondaryDarker: '#590094',
+  secondaryDark: '#7800c7',
+  secondary: '#c86bfa',
+  white: '#fff',
+  black: '#000',
+  blue: '#1DA1F2',
+};
 
 /* Tema claro */
-const light_colors = {
-    primary_darkest:    '#ffed66',
-    primary_dark:       '#ffed66',
-    primary:            '#88f',
-    secondary_darkest:  '#88b',
-    secondary_darker:   '#bbd',
-    secondary_dark:     '#fff',
-    secondary:          '#bbe',
-    white:              '#000',
-    black:              '#fff'
-}
+const lightColors: Colors = {
+  primaryDarkest: '#ffed66',
+  primaryDark: '#ffed66',
+  primary: '#88f',
+  secondaryDarkest: '#88b',
+  secondaryDarker: '#bbd',
+  secondaryDark: '#fff',
+  secondary: '#bbe',
+  white: '#000',
+  black: '#fff',
+  blue: '#1DA1F2',
+};
 
-export default colors;
+export { colors, lightColors };
