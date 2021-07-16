@@ -8,4 +8,7 @@ export const mainStyles = StyleSheet.create({
     paddingTop: 60,
     height: '100%',
   },
+  lightbulb: {
+    paddingTop: 500,
+  },
 });

@@ -1,7 +1,12 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { AntDesign } from '@expo/vector-icons';
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItem,
+  DrawerItemList,
+} from '@react-navigation/drawer';
+import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { colors } from '../../global/colors';
 
 // Screens
@@ -57,6 +62,21 @@ export function Main() {
           fontSize: 22,
           color: colors.white,
         },
+      }}
+      drawerContent={props => {
+        return (
+          <DrawerContentScrollView {...props}>
+            <DrawerItemList {...props} />
+            <DrawerItem
+              style={mainStyles.lightbulb}
+              label=""
+              onPress={() => console.log('oi')}
+              icon={() => (
+                <Ionicons name="bulb-outline" size={24} color={colors.white} />
+              )}
+            />
+          </DrawerContentScrollView>
+        );
       }}
     >
       <Drawer.Screen
