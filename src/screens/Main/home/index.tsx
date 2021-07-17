@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -11,6 +11,7 @@ import { homeStyles } from './styles';
 import { Feed } from './Feed';
 import { Explore } from './Explore';
 import { useNavigation } from '@react-navigation/native';
+import { ThemeContext } from '../../../utils/ThemeHandler';
 
 const Tab = createBottomTabNavigator();
 
@@ -48,16 +49,20 @@ export function Home() {
     );
   });
 
+  const context = useContext(ThemeContext);
+
   return (
     <Tab.Navigator
       initialRouteName="Feed"
       tabBarOptions={{
-        inactiveTintColor: colors.secondary,
+        inactiveTintColor: colors[`light${context.theme}`],
         activeTintColor: colors.white,
-        activeBackgroundColor: colors.secondaryDark,
-        inactiveBackgroundColor: colors.secondaryDark,
+        activeBackgroundColor: colors[`medium${context.theme}`],
+        inactiveBackgroundColor: colors[`medium${context.theme}`],
         style: {
           ...homeStyles.tabNavigator,
+          backgroundColor: colors[`medium${context.theme}`],
+          borderTopColor: colors[`darkest${context.theme}`],
         },
       }}
     >

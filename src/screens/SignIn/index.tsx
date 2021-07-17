@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text, TextInput, Alert } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
@@ -11,6 +11,7 @@ import { colors } from '../../global/colors';
 
 import SvgLogo from '../../components/Icons/logo';
 import { signInStyles } from './styles';
+import { ThemeContext } from '../../utils/ThemeHandler';
 
 const showAlert = (title: string, body: string) =>
   Alert.alert(title, body, [
@@ -42,8 +43,15 @@ export function SignIn() {
     }
   };
 
+  const context = useContext(ThemeContext);
+
   return (
-    <View style={signInStyles.container}>
+    <View
+      style={[
+        signInStyles.container,
+        { backgroundColor: colors[`medium${context.theme}`] },
+      ]}
+    >
       <Spinner
         visible={isLoading}
         textContent="Carregando..."
@@ -55,7 +63,10 @@ export function SignIn() {
       <View style={signInStyles.inputWrapper}>
         <Text style={signInStyles.inputLabel}>E-mail</Text>
         <TextInput
-          style={signInStyles.input}
+          style={[
+            signInStyles.input,
+            { borderColor: colors[`light${context.theme}`] },
+          ]}
           onChangeText={text => setEmail(text)}
           placeholder="email@dominio.com"
           placeholderTextColor={colors.secondary}
@@ -64,7 +75,10 @@ export function SignIn() {
         />
         <Text style={signInStyles.inputLabel}>Senha</Text>
         <TextInput
-          style={signInStyles.input}
+          style={[
+            signInStyles.input,
+            { borderColor: colors[`light${context.theme}`] },
+          ]}
           onChangeText={text => setPassword(text)}
           placeholder="Sua senha"
           placeholderTextColor={colors.secondary}

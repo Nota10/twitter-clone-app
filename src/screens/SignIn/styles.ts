@@ -39,7 +39,7 @@ export const signInStyles = StyleSheet.create({
     fontSize: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: colors.secondary,
+    // borderColor: colors.secondary,
     borderWidth: 2,
     borderRadius: 40,
     paddingVertical: 15,
@@ -47,7 +47,7 @@ export const signInStyles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: colors.secondaryDark,
+    // backgroundColor: colors.secondaryDark,
     alignItems: 'center',
     justifyContent: 'flex-start',
   },

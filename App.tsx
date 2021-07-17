@@ -9,28 +9,31 @@ import { Main } from './src/screens/Main';
 import { enableScreens } from 'react-native-screens';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { ThemeProvider } from './src/utils/ThemeHandler';
 
 enableScreens();
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        mode="card"
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen
-          name="Welcome"
-          component={Welcome}
-          options={{ title: 'Welcome' }}
-        />
-        <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="SignIn" component={SignIn} />
-        <Stack.Screen name="Main" component={Main} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <ThemeProvider>
+      <NavigationContainer>
+        <Stack.Navigator
+          mode="card"
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
+          <Stack.Screen
+            name="Welcome"
+            component={Welcome}
+            options={{ title: 'Welcome' }}
+          />
+          <Stack.Screen name="SignUp" component={SignUp} />
+          <Stack.Screen name="SignIn" component={SignIn} />
+          <Stack.Screen name="Main" component={Main} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </ThemeProvider>
   );
 }

@@ -6,10 +6,10 @@ export const tweetStyles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
-    backgroundColor: colors.secondaryDark,
+    // backgroundColor: colors.secondaryDark,
     paddingVertical: 25,
     paddingHorizontal: 15,
-    borderColor: colors.secondaryDarkest,
+    // borderColor: colors.secondaryDarkest,
     borderTopWidth: 1,
   },
   container: {

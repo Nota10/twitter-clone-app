@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -14,6 +14,7 @@ import { Home } from './home';
 import { Profile } from './Profile';
 import { useNavigation } from '@react-navigation/native';
 import { mainStyles } from './styles';
+import { ThemeContext } from '../../utils/ThemeHandler';
 
 const Drawer = createDrawerNavigator();
 
@@ -50,14 +51,18 @@ export function Main() {
   //     </DrawerContentScrollView>
   //   );
   // };
+  const context = useContext(ThemeContext);
 
   return (
     <Drawer.Navigator
-      drawerStyle={mainStyles.drawer}
+      drawerStyle={[
+        mainStyles.drawer,
+        { backgroundColor: colors[`dark${context.theme}`] },
+      ]}
       // drawerContent={}
       drawerContentOptions={{
-        activeTintColor: colors.secondaryDarker,
-        activeBackgroundColor: colors.secondaryDark,
+        activeTintColor: colors[`dark${context.theme}`],
+        activeBackgroundColor: colors[`medium${context.theme}`],
         labelStyle: {
           fontSize: 22,
           color: colors.white,
@@ -70,7 +75,7 @@ export function Main() {
             <DrawerItem
               style={mainStyles.lightbulb}
               label=""
-              onPress={() => console.log('oi')}
+              onPress={() => context.themeHandler()}
               icon={() => (
                 <Ionicons name="bulb-outline" size={24} color={colors.white} />
               )}
@@ -83,7 +88,7 @@ export function Main() {
         name="Home"
         options={{
           drawerLabel: 'Início',
-          headerTintColor: colors.secondary,
+          headerTintColor: colors[`light${context.theme}`],
           drawerIcon: ({ color, size }) => (
             <AntDesign
               name="home"
@@ -99,7 +104,7 @@ export function Main() {
         name="Profile"
         options={{
           drawerLabel: 'Perfil',
-          headerTintColor: colors.secondary,
+          headerTintColor: colors[`light${context.theme}`],
           drawerIcon: ({ color, size }) => (
             <AntDesign
               name="user"

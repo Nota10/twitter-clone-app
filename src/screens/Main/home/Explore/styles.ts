@@ -6,12 +6,12 @@ export const exploreStyles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-start',
-    backgroundColor: colors.secondaryDarkest,
+    // backgroundColor: colors.secondaryDarkest,
   },
   scrollView: {
     width: '100%',
     alignContent: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.secondaryDarkest,
+    // backgroundColor: colors.secondaryDarkest,
   },
 });
