@@ -1,14 +1,14 @@
 import 'react-native-gesture-handler';
-import React, { useContext, useState } from 'react';
-import { View, Text, Image, TextInput } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TextInput } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
-
-// import { colors } from '../../global/colors';
+import { useThemeObject } from '../../hooks/theme.hook';
 
 import SvgLogo from '../../components/Icons/logo';
-import { signInStyles } from '../SignUp/styles';
-// import { ThemeContext } from '../../utils/ThemeHandler';
+import { signUpStyles } from '../SignUp/styles';
+import { theme } from '../../global/theme';
+import { useThemeContext } from '../../contexts/ThemeContext';
 
 export function SignUp() {
   const navigation = useNavigation();
@@ -19,66 +19,53 @@ export function SignUp() {
     confirmPassword: '',
   });
 
-  // const context = useContext(ThemeContext);
+  const { theme } = useThemeContext();
+  const styles = useThemeObject(signUpStyles);
 
   return (
     <View
       style={[
-        signInStyles.container,
+        styles.container,
         // { backgroundColor: colors[`medium${context.theme}`] },
       ]}
     >
-      <View style={signInStyles.logoContainer}>
+      <View style={styles.logoContainer}>
         <SvgLogo />
       </View>
-      <View style={signInStyles.inputWrapper}>
-        <Text style={signInStyles.inputLabel}>E-mail</Text>
+      <View style={styles.inputWrapper}>
+        <Text style={styles.inputLabel}>E-mail</Text>
         <TextInput
-          style={[
-            signInStyles.input,
-            // { borderColor: colors[`light${context.theme}`] },
-          ]}
+          style={styles.input}
           onChangeText={text => setFormData({ ...formData, email: text })}
           placeholder="email@dominio.com"
-          // placeholderTextColor={colors[`light${context.theme}`]}
+          placeholderTextColor={theme.colors.secondary.light}
           autoCompleteType="email"
         />
-        <Text style={signInStyles.inputLabel}>Senha</Text>
+        <Text style={styles.inputLabel}>Senha</Text>
         <TextInput
-          style={[
-            signInStyles.input,
-            // { borderColor: colors[`light${context.theme}`] },
-          ]}
+          style={styles.input}
           onChangeText={text => setFormData({ ...formData, password: text })}
           placeholder=""
-          // placeholderTextColor={colors[`light${context.theme}`]}
           autoCompleteType="password"
           secureTextEntry={true}
         />
-        <Text style={signInStyles.inputLabel}>Confirmar Senha</Text>
+        <Text style={styles.inputLabel}>Confirmar Senha</Text>
         <TextInput
-          style={[
-            signInStyles.input,
-            // { borderColor: colors[`light${context.theme}`] },
-          ]}
+          style={styles.input}
           onChangeText={text =>
             setFormData({ ...formData, confirmPassword: text })
           }
           placeholder=""
-          // placeholderTextColor={colors[`light${context.theme}`]}
           autoCompleteType="password"
           secureTextEntry={true}
         />
       </View>
-      <RectButton style={signInStyles.button}>
-        <Text style={signInStyles.buttonText}>Criar conta</Text>
+      <RectButton style={styles.button}>
+        <Text style={styles.buttonText}>Criar conta</Text>
       </RectButton>
-      <Text style={signInStyles.bottomMsg}>
+      <Text style={styles.bottomMsg}>
         Já possuí conta?{' '}
-        <Text
-          style={signInStyles.link}
-          onPress={() => navigation.navigate('SignIn')}
-        >
+        <Text style={styles.link} onPress={() => navigation.navigate('SignIn')}>
           Entrar
         </Text>
       </Text>

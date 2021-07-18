@@ -5,6 +5,7 @@ import axios from 'axios';
 import { Text, View } from 'react-native';
 import { Header } from '../../../components/Header';
 import { profileStyles } from './styles';
+import { useThemeObject } from '../../../hooks/theme.hook';
 
 type User = {
   id: number;
@@ -17,6 +18,8 @@ type User = {
 
 const Profile: React.FC = () => {
   const [data, setData] = useState<User>({} as User);
+
+  const styles = useThemeObject(profileStyles);
 
   useEffect(() => {
     const getData = async () => {
@@ -35,29 +38,19 @@ const Profile: React.FC = () => {
   }, []);
 
   return (
-    <View
-      style={[
-        profileStyles.container,
-        // { backgroundColor: colors[`dark${context.theme}`] },
-      ]}
-    >
+    <View style={styles.container}>
       <Header title="Perfil" />
       {Object.keys(data).length > 0 && (
-        <View
-          style={[
-            profileStyles.dataContainer,
-            // { backgroundColor: colors[`dark${context.theme}`] },
-          ]}
-        >
+        <View style={styles.dataContainer}>
           <View>
-            <Text style={profileStyles.dataLabel}>Nome:</Text>
-            <Text style={profileStyles.dataValue}>{data.name}</Text>
-            <Text style={profileStyles.dataLabel}>Email:</Text>
-            <Text style={profileStyles.dataValue}>{data.email}</Text>
-            <Text style={profileStyles.dataLabel}>Telefone:</Text>
-            <Text style={profileStyles.dataValue}>{data.phone}</Text>
-            <Text style={profileStyles.dataLabel}>Website:</Text>
-            <Text style={profileStyles.dataValue}>{data.website}</Text>
+            <Text style={styles.dataLabel}>Nome:</Text>
+            <Text style={styles.dataValue}>{data.name}</Text>
+            <Text style={styles.dataLabel}>Email:</Text>
+            <Text style={styles.dataValue}>{data.email}</Text>
+            <Text style={styles.dataLabel}>Telefone:</Text>
+            <Text style={styles.dataValue}>{data.phone}</Text>
+            <Text style={styles.dataLabel}>Website:</Text>
+            <Text style={styles.dataValue}>{data.website}</Text>
           </View>
         </View>
       )}

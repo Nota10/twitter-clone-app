@@ -11,6 +11,7 @@ import { PURPLE_THEME } from './src/global/colors/purple.theme';
 import { enableScreens } from 'react-native-screens';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { StatusBar } from 'react-native';
 
 enableScreens();
 const Stack = createStackNavigator();
@@ -18,6 +19,11 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <ThemeProvider initialValue={PURPLE_THEME}>
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor="transparent"
+        translucent
+      />
       <NavigationContainer>
         <Stack.Navigator
           mode="card"

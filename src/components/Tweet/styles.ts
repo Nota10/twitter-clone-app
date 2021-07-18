@@ -34,7 +34,7 @@ export const tweetStyles = (theme: Theme) => {
       fontSize: 20,
       color: theme.colors.common.white,
     },
-    textUserTag: { fontSize: 18, color: theme.colors.secondary.main },
+    textUserTag: { fontSize: 18, color: theme.colors.secondary.light },
     textBody: {
       fontSize: 18,
       color: theme.colors.common.white,

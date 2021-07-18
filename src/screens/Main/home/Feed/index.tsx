@@ -2,16 +2,17 @@ import 'react-native-gesture-handler';
 
 import axios from 'axios';
 import { SafeAreaView, ScrollView, View } from 'react-native';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Header } from '../../../../components/Header';
 
 import { Tweet } from '../../../../components/Tweet';
 import { feedStyles } from './styles';
-// import { ThemeContext } from '../../../../utils/ThemeHandler';
-// import { colors } from '../../../../global/colors';
+import { useThemeObject } from '../../../../hooks/theme.hook';
 
 const Feed: React.FC = () => {
   const [data, setData] = useState<Array<any>>([]);
+
+  const styles = useThemeObject(feedStyles);
 
   useEffect(() => {
     const getData = async () => {
@@ -35,23 +36,11 @@ const Feed: React.FC = () => {
     getData();
   }, []);
 
-  // const context = useContext(ThemeContext);
-
   return (
-    <View
-      style={[
-        feedStyles.container,
-        // { backgroundColor: colors[`darkest${context.theme}`] },
-      ]}
-    >
+    <View style={styles.container}>
       <Header title="Últimos Tweets" />
       <SafeAreaView>
-        <ScrollView
-          contentContainerStyle={[
-            feedStyles.scrollView,
-            // { backgroundColor: colors[`darkest${context.theme}`] },
-          ]}
-        >
+        <ScrollView contentContainerStyle={styles.scrollView}>
           {data.map(post => (
             <Tweet key={post.id} post={post} />
           ))}

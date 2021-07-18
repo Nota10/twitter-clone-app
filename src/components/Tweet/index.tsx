@@ -26,7 +26,7 @@ export function Tweet({ post }: any) {
             <Text style={styles.textUserName}>
               {'userName' in post ? post.userName : 'Francis'}&nbsp;
             </Text>
-            <Text style={[styles.textUserTag]}>
+            <Text style={styles.textUserTag}>
               {'userTag' in post ? post.userTag : `@User_${post.userId}`} • 1h
             </Text>
           </View>

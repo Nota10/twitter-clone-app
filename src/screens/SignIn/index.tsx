@@ -27,7 +27,7 @@ export function SignIn() {
   const navigation = useNavigation();
 
   const styles = useThemeObject(signInStyles);
-  const { theme, toggleTheme } = useThemeContext();
+  const { theme } = useThemeContext();
 
   const [email, setEmail] = useState('hey@email.com');
   const [password, setPassword] = useState('123123');
@@ -70,7 +70,7 @@ export function SignIn() {
         />
         <Text style={styles.inputLabel}>Senha</Text>
         <TextInput
-          style={[styles.input]}
+          style={styles.input}
           onChangeText={text => setPassword(text)}
           placeholder="Sua senha"
           placeholderTextColor={theme.colors.secondary.main}
@@ -87,30 +87,7 @@ export function SignIn() {
       >
         <Text style={styles.buttonText}>Entrar</Text>
       </RectButton>
-      <RectButton
-        style={styles.button}
-        onPress={() => {
-          toggleTheme(PURPLE_THEME_ID);
-        }}
-      >
-        <Text style={styles.buttonText}>PURPLE_THEME_ID</Text>
-      </RectButton>
-      <RectButton
-        style={styles.button}
-        onPress={() => {
-          toggleTheme(BLUE_THEME_ID);
-        }}
-      >
-        <Text style={styles.buttonText}>BLUE_THEME_ID</Text>
-      </RectButton>
-      <RectButton
-        style={styles.button}
-        onPress={() => {
-          toggleTheme(GRAY_THEME_ID);
-        }}
-      >
-        <Text style={styles.buttonText}>GRAY_THEME_ID</Text>
-      </RectButton>
+
       <Text style={styles.bottomMsg}>
         Não possui conta?{' '}
         <Text style={styles.link} onPress={() => navigation.navigate('SignUp')}>

@@ -4,24 +4,14 @@ import { View, Text } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import SvgLogo from '../../components/Icons/logo';
 import { useNavigation } from '@react-navigation/native';
-import { signInStyles } from '../SignIn/styles';
 import { welcomeStyles } from './styles';
 import { useThemeObject } from '../../hooks/theme.hook';
-// import { ThemeContext } from '../../utils/ThemeHandler';
-// import { colors } from '../../global/colors';
 
 export function Welcome() {
   const navigation = useNavigation();
   const textoEntrada = 'Veja o que está acontecendo no mundo neste momento.';
 
-  const styles = useThemeObject(signInStyles);
-
-  // const context = useContext(ThemeContext);
-
-  // necerrário por enquanto
-  // useEffect(() => {
-  //   context.themeHandler();
-  // }, []);
+  const styles = useThemeObject(welcomeStyles);
 
   return (
     <View
@@ -33,7 +23,7 @@ export function Welcome() {
       <View style={styles.logoContainer}>
         <SvgLogo />
       </View>
-      <Text style={welcomeStyles.leadText}>{textoEntrada}</Text>
+      <Text style={styles.leadText}>{textoEntrada}</Text>
       <RectButton
         style={styles.button}
         onPress={() => navigation.navigate('SignUp')}

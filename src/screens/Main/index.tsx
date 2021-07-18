@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import {
   createDrawerNavigator,
   DrawerContentScrollView,
@@ -12,49 +12,55 @@ import { AntDesign, Ionicons } from '@expo/vector-icons';
 import { Home } from './home';
 import { Profile } from './Profile';
 import { useNavigation } from '@react-navigation/native';
-import { mainStyles } from './styles';
 import { useThemeContext } from '../../contexts/ThemeContext';
 import { PURPLE_THEME_ID } from '../../global/colors/purple.theme';
-// import { ThemeContext } from '../../utils/ThemeHandler';
+import { BLUE_THEME_ID } from '../../global/colors/blue.theme';
+import { mainStyles } from './styles';
+import { useThemeObject } from '../../hooks/theme.hook';
+import { View } from 'react-native';
+import { GRAY_THEME_ID } from '../../global/colors/gray.theme';
 
 const Drawer = createDrawerNavigator();
 
 export function Main() {
   const navigation = useNavigation();
 
+  const styles = useThemeObject(mainStyles);
   const { theme, toggleTheme } = useThemeContext();
 
   return (
     <Drawer.Navigator
-      drawerStyle={[
-        mainStyles.drawer,
-        // { backgroundColor: colors[`dark${context.theme}`] },
-      ]}
+      drawerStyle={styles.drawer}
       // drawerContent={}
       drawerContentOptions={{
-        // activeTintColor: colors[`dark${context.theme}`],
-        // activeBackgroundColor: colors[`medium${context.theme}`],
+        activeTintColor: theme.colors.secondary.dark,
+        activeBackgroundColor: theme.colors.secondary.main,
         labelStyle: {
           fontSize: 22,
-          // color: colors.white,
+          color: theme.colors.common.white,
         },
       }}
       drawerContent={props => {
         return (
           <DrawerContentScrollView {...props}>
             <DrawerItemList {...props} />
-            <DrawerItem
-              style={mainStyles.lightbulb}
-              label="Roxo"
-              onPress={() => toggleTheme(PURPLE_THEME_ID)}
-              icon={() => (
-                <Ionicons
-                  name="bulb-outline"
-                  size={24}
-                  color={theme.colors.common.white}
-                />
-              )}
-            />
+            <View style={styles.items}>
+              <DrawerItem
+                style={styles.purple}
+                label="Roxo"
+                onPress={() => toggleTheme(PURPLE_THEME_ID)}
+              />
+              <DrawerItem
+                style={styles.blue}
+                label="Azul"
+                onPress={() => toggleTheme(BLUE_THEME_ID)}
+              />
+              <DrawerItem
+                style={styles.gray}
+                label="Cinza"
+                onPress={() => toggleTheme(GRAY_THEME_ID)}
+              />
+            </View>
           </DrawerContentScrollView>
         );
       }}
@@ -63,13 +69,13 @@ export function Main() {
         name="Home"
         options={{
           drawerLabel: 'Início',
-          // headerTintColor: colors[`light${context.theme}`],
+          headerTintColor: theme.colors.secondary.light,
           drawerIcon: ({ color, size }) => (
             <AntDesign
               name="home"
               color={color}
               size={size}
-              // style={{ paddingLeft: 15, color: colors.white }}
+              style={{ paddingLeft: 15, color: theme.colors.common.white }}
             />
           ),
         }}
@@ -79,13 +85,13 @@ export function Main() {
         name="Profile"
         options={{
           drawerLabel: 'Perfil',
-          // headerTintColor: colors[`light${context.theme}`],
+          headerTintColor: theme.colors.secondary.light,
           drawerIcon: ({ color, size }) => (
             <AntDesign
               name="user"
               color={color}
               size={size}
-              // style={{ paddingLeft: 15, color: colors.white }}
+              style={{ paddingLeft: 15, color: theme.colors.common.white }}
             />
           ),
         }}
