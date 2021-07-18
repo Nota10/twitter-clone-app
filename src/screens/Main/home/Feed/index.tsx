@@ -2,11 +2,13 @@ import 'react-native-gesture-handler';
 
 import axios from 'axios';
 import { SafeAreaView, ScrollView, View } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Header } from '../../../../components/Header';
 
 import { Tweet } from '../../../../components/Tweet';
 import { feedStyles } from './styles';
+// import { ThemeContext } from '../../../../utils/ThemeHandler';
+// import { colors } from '../../../../global/colors';
 
 const Feed: React.FC = () => {
   const [data, setData] = useState<Array<any>>([]);
@@ -33,11 +35,23 @@ const Feed: React.FC = () => {
     getData();
   }, []);
 
+  // const context = useContext(ThemeContext);
+
   return (
-    <View style={feedStyles.container}>
+    <View
+      style={[
+        feedStyles.container,
+        // { backgroundColor: colors[`darkest${context.theme}`] },
+      ]}
+    >
       <Header title="Últimos Tweets" />
       <SafeAreaView>
-        <ScrollView contentContainerStyle={feedStyles.scrollView}>
+        <ScrollView
+          contentContainerStyle={[
+            feedStyles.scrollView,
+            // { backgroundColor: colors[`darkest${context.theme}`] },
+          ]}
+        >
           {data.map(post => (
             <Tweet key={post.id} post={post} />
           ))}

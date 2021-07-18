@@ -1,75 +1,75 @@
 import 'react-native-gesture-handler';
-import React from 'react';
-import { createDrawerNavigator } from '@react-navigation/drawer';
-import { AntDesign } from '@expo/vector-icons';
-import { colors } from '../../global/colors';
+import React, { useContext, useEffect } from 'react';
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItem,
+  DrawerItemList,
+} from '@react-navigation/drawer';
+import { AntDesign, Ionicons } from '@expo/vector-icons';
 
 // Screens
 import { Home } from './home';
 import { Profile } from './Profile';
 import { useNavigation } from '@react-navigation/native';
 import { mainStyles } from './styles';
+import { useThemeContext } from '../../contexts/ThemeContext';
+import { PURPLE_THEME_ID } from '../../global/colors/purple.theme';
+// import { ThemeContext } from '../../utils/ThemeHandler';
 
 const Drawer = createDrawerNavigator();
 
 export function Main() {
   const navigation = useNavigation();
 
-  // const CustomDrawerContent = (props: ScrollViewProps) => {
-  //   return (
-  //     <DrawerContentScrollView
-  //       {...props}
-  //       contentContainerStyle={{
-  //         display: 'flex',
-  //         justifyContent: 'space-between',
-  //         height: '100%',
-  //         paddingBottom: 50,
-  //       }}
-  //     >
-  //       <View>
-  //         <DrawerItemList />
-  //       </View>
-  //       <DrawerItem
-  //         label="Sair"
-  //         onPress={() => signOut()}
-  //         icon={({ color, size }) => (
-  //           <AntDesign
-  //             name="closecircleo"
-  //             color={color}
-  //             size={size}
-  //             style={{ paddingLeft: 15, color: colors.white, bottom: 0 }}
-  //           />
-  //         )}
-  //         labelStyle={{ fontSize: 22, color: colors.white }}
-  //       />
-  //     </DrawerContentScrollView>
-  //   );
-  // };
+  const { theme, toggleTheme } = useThemeContext();
 
   return (
     <Drawer.Navigator
-      drawerStyle={mainStyles.drawer}
+      drawerStyle={[
+        mainStyles.drawer,
+        // { backgroundColor: colors[`dark${context.theme}`] },
+      ]}
       // drawerContent={}
       drawerContentOptions={{
-        activeTintColor: colors.secondaryDarker,
-        activeBackgroundColor: colors.secondaryDark,
+        // activeTintColor: colors[`dark${context.theme}`],
+        // activeBackgroundColor: colors[`medium${context.theme}`],
         labelStyle: {
           fontSize: 22,
-          color: colors.white,
+          // color: colors.white,
         },
+      }}
+      drawerContent={props => {
+        return (
+          <DrawerContentScrollView {...props}>
+            <DrawerItemList {...props} />
+            <DrawerItem
+              style={mainStyles.lightbulb}
+              label="Roxo"
+              onPress={() => toggleTheme(PURPLE_THEME_ID)}
+              icon={() => (
+                <Ionicons
+                  name="bulb-outline"
+                  size={24}
+                  color={theme.colors.common.white}
+                />
+              )}
+            />
+          </DrawerContentScrollView>
+        );
       }}
     >
       <Drawer.Screen
         name="Home"
         options={{
           drawerLabel: 'Início',
-          headerTintColor: colors.secondary,
+          // headerTintColor: colors[`light${context.theme}`],
           drawerIcon: ({ color, size }) => (
             <AntDesign
               name="home"
               color={color}
               size={size}
-              style={{ paddingLeft: 15, color: colors.white }}
+              // style={{ paddingLeft: 15, color: colors.white }}
             />
           ),
         }}
@@ -79,13 +79,13 @@ export function Main() {
         name="Profile"
         options={{
           drawerLabel: 'Perfil',
-          headerTintColor: colors.secondary,
+          // headerTintColor: colors[`light${context.theme}`],
           drawerIcon: ({ color, size }) => (
             <AntDesign
               name="user"
               color={color}
               size={size}
-              style={{ paddingLeft: 15, color: colors.white }}
+              // style={{ paddingLeft: 15, color: colors.white }}
             />
           ),
         }}

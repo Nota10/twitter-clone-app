@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../../global/colors';
+// import { colors } from '../../../global/colors';
 
 export const profileStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.secondaryDark,
+    // backgroundColor: colors.secondaryDark,
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
@@ -14,12 +14,15 @@ export const profileStyles = StyleSheet.create({
     justifyContent: 'space-evenly',
     flexDirection: 'column',
     padding: 50,
-    backgroundColor: colors.secondaryDark,
+    // backgroundColor: colors.secondaryDark,
   },
   dataLabel: {
     fontSize: 18,
-    color: colors.white,
+    // color: colors.white,
     fontWeight: 'bold',
   },
-  dataValue: { fontSize: 16, color: colors.white },
+  dataValue: {
+    fontSize: 16,
+    // color: colors.white
+  },
 });

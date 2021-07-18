@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import Svg, { G, Circle, Path } from 'react-native-svg';
+import { useThemeContext } from '../../contexts/ThemeContext';
 
 function svgLogo() {
+  const { theme } = useThemeContext();
   return (
     <View style={{ aspectRatio: 1 }}>
       <Svg
@@ -32,15 +34,15 @@ function svgLogo() {
           <G transform="matrix(.8554 0 0 .83069 36.15 -18.552)">
             <Path
               d="M310.822 310.665c-20.747 0-43.861-33.724-39.193-34.635 26.671-5.205 26.56-15.162 38.092-30.198 8.359-10.899 25.181-18.821 38.325-11.122 15.259 8.938 14.837 25.472 14.837 34.593 0 22.688-29.373 41.362-52.061 41.362zM189.178 310.665c20.747 0 43.86-33.724 39.193-34.635-26.671-5.205-26.56-15.162-38.092-30.198-8.36-10.9-25.181-18.821-38.325-11.122-15.26 8.938-14.837 25.472-14.837 34.593 0 22.688 29.373 41.362 52.06 41.362z"
-              fill="#7800c7"
               strokeWidth={9.128}
-              stroke="#7800c7"
+              fill={theme.colors.secondary.main}
+              stroke={theme.colors.secondary.main}
             />
           </G>
           <G transform="matrix(.85926 0 0 .8653 35.185 2.478)">
             <Path
               d="M276.285 242.434c-36.177-6.938-29.746-29.792-9.982-34.74 32.436-8.121 36.358-33.022 58.659-36.127"
-              stroke="#7800c7"
+              stroke={theme.colors.secondary.main}
               strokeLinecap="round"
               strokeLinejoin="round"
               fill="none"
@@ -48,7 +50,7 @@ function svgLogo() {
             />
             <Path
               d="M223.715 242.434c36.177-6.938 29.746-29.792 9.982-34.74-32.436-8.121-36.358-33.022-58.66-36.127"
-              stroke="#7800c7"
+              stroke={theme.colors.secondary.main}
               strokeLinecap="round"
               strokeLinejoin="round"
               fill="none"
@@ -58,14 +60,14 @@ function svgLogo() {
           <G transform="translate(0 13.968)">
             <Path
               d="M319.138 250c0 7.333-2.95 14.399-8.014 20.423-5.049 6.006-12.155 11.071-20.705 14.964-4.016 10.374-9.669 18.791-16.568 24.901-6.917 6.127-15.19 9.731-23.851 9.731s-16.934-3.604-23.851-9.731c-6.899-6.11-12.558-14.694-16.568-24.901-8.715-3.912-15.656-8.958-20.705-14.964-5.064-6.024-8.014-13.09-8.014-20.423 0-9.322 4.369-14.317 9.917-17.974 5.53-3.645 12.19-6.145 17.645-11.029 2.31-5.426 5.259-9.971 8.796-13.787.775-1.401 2.082-2.566 3.799-3.607 8.155-6.802 18.527-10.112 29.568-10.112 11.631 0 22.269 3.712 30.345 11.227 2.94 1.798 4.899 4.007 5.683 6.589 2.624 3.767 4.764 8.032 6.442 13.017 4.676 5.168 10.934 8.382 16.265 11.962 5.345 3.59 9.816 7.663 9.816 13.714z"
-              stroke="#7800c7"
+              stroke={theme.colors.secondary.main}
               fill="#ffd500"
               strokeWidth={8.623}
             />
             <Path
               d="M183.442 259.797s-4.773-21.743 30.492.796c29.884 19.099 44.312 15.155 69.729-.796 34.647-21.743 33.102.428 33.102.428"
               fill="none"
-              stroke="#7800c7"
+              stroke={theme.colors.secondary.main}
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth={10}
