@@ -4,14 +4,14 @@ import { Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { AntDesign } from '@expo/vector-icons';
-import { colors } from '../../../global/colors';
+// import { colors } from '../../../global/colors';
 import { homeStyles } from './styles';
 
 // Screens
 import { Feed } from './Feed';
 import { Explore } from './Explore';
 import { useNavigation } from '@react-navigation/native';
-import { ThemeContext } from '../../../utils/ThemeHandler';
+// import { ThemeContext } from '../../../utils/ThemeHandler';
 
 const Tab = createBottomTabNavigator();
 
@@ -49,20 +49,20 @@ export function Home() {
     );
   });
 
-  const context = useContext(ThemeContext);
+  // const context = useContext(ThemeContext);
 
   return (
     <Tab.Navigator
       initialRouteName="Feed"
       tabBarOptions={{
-        inactiveTintColor: colors[`light${context.theme}`],
-        activeTintColor: colors.white,
-        activeBackgroundColor: colors[`medium${context.theme}`],
-        inactiveBackgroundColor: colors[`medium${context.theme}`],
+        // activeTintColor: colors.white,
+        // inactiveTintColor: colors[`light${context.theme}`],
+        // activeBackgroundColor: colors[`medium${context.theme}`],
+        // inactiveBackgroundColor: colors[`medium${context.theme}`],
         style: {
           ...homeStyles.tabNavigator,
-          backgroundColor: colors[`medium${context.theme}`],
-          borderTopColor: colors[`darkest${context.theme}`],
+          // backgroundColor: colors[`medium${context.theme}`],
+          // borderTopColor: colors[`darkest${context.theme}`],
         },
       }}
     >

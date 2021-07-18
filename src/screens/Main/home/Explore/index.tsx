@@ -7,8 +7,8 @@ import { Header } from '../../../../components/Header';
 
 import { Tweet } from '../../../../components/Tweet';
 import { exploreStyles } from './styles';
-import { ThemeContext } from '../../../../utils/ThemeHandler';
-import { colors } from '../../../../global/colors';
+// import { ThemeContext } from '../../../../utils/ThemeHandler';
+// import { colors } from '../../../../global/colors';
 
 type User = {
   id: number;
@@ -36,13 +36,13 @@ const Explore = () => {
     getData();
   }, []);
 
-  const context = useContext(ThemeContext);
+  // const context = useContext(ThemeContext);
 
   return (
     <View
       style={[
         exploreStyles.container,
-        { backgroundColor: colors[`darkest${context.theme}`] },
+        // { backgroundColor: colors[`darkest${context.theme}`] },
       ]}
     >
       <Header title="Explorar" />
@@ -50,7 +50,7 @@ const Explore = () => {
         <ScrollView
           contentContainerStyle={[
             exploreStyles.scrollView,
-            { backgroundColor: colors[`darkest${context.theme}`] },
+            // { backgroundColor: colors[`darkest${context.theme}`] },
           ]}
         >
           {data.map(({ id, first_name, last_name, avatar }) => {

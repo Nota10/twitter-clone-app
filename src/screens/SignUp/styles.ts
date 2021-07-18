@@ -1,12 +1,12 @@
 import { StyleSheet } from 'react-native';
 
-import { colors } from '../../global/colors';
+// import { colors } from '../../global/colors';
 
 export const signInStyles = StyleSheet.create({
   button: {
     height: 45,
     width: '70%',
-    backgroundColor: colors.primaryDark,
+    // backgroundColor: colors.primaryDark,
     borderRadius: 80,
     justifyContent: 'center',
     alignItems: 'center',
@@ -14,7 +14,7 @@ export const signInStyles = StyleSheet.create({
   buttonText: {
     justifyContent: 'center',
     alignItems: 'center',
-    color: colors.white,
+    // color: colors.white,
     fontSize: 20,
     fontWeight: 'bold',
   },
@@ -30,16 +30,16 @@ export const signInStyles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'left',
     fontSize: 20,
-    color: colors.white,
+    // color: colors.white,
   },
   input: {
     marginTop: 5,
     marginBottom: 15,
-    color: colors.white,
+    // color: colors.white,
     fontSize: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    // borderColor: colors.secondary,
+    // // borderColor: colors.secondary,
     borderWidth: 2,
     borderRadius: 40,
     paddingVertical: 15,
@@ -47,7 +47,7 @@ export const signInStyles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    // backgroundColor: colors.secondaryDark,
+    // // backgroundColor: colors.secondaryDark,
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
@@ -55,10 +55,10 @@ export const signInStyles = StyleSheet.create({
     position: 'absolute',
     bottom: 30,
     left: 60,
-    color: colors.white,
+    // color: colors.white,
   },
   link: {
-    color: colors.primary,
+    // color: colors.primary,
   },
   logoContainer: {
     width: 65,
@@ -66,5 +66,5 @@ export const signInStyles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 125,
   },
-  spinnerText: { color: colors.primaryDark },
+  // spinnerText: { color: colors.primaryDark },
 });

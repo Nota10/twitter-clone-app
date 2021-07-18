@@ -6,8 +6,8 @@ import { useNavigation, DrawerActions } from '@react-navigation/native';
 
 import { styles } from './styles';
 import logo from '../../../assets/logo_alpha.png';
-import { ThemeContext } from '../../utils/ThemeHandler';
-import { colors } from '../../global/colors';
+// import { ThemeContext } from '../../utils/ThemeHandler';
+// import { colors } from '../../global/colors';
 
 type HeaderProps = {
   title: string;
@@ -16,14 +16,14 @@ type HeaderProps = {
 export function Header({ title }: HeaderProps) {
   const navigation = useNavigation();
 
-  const context = useContext(ThemeContext);
+  // const context = useContext(ThemeContext);
 
   return (
     <View
       style={[
         styles.container,
-        { backgroundColor: colors[`medium${context.theme}`] },
-        { borderBottomColor: colors[`dark${context.theme}`] },
+        // { backgroundColor: colors[`medium${context.theme}`] },
+        // { borderBottomColor: colors[`dark${context.theme}`] },
       ]}
     >
       <View style={styles.imageContainer}>

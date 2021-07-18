@@ -6,14 +6,17 @@ import SvgLogo from '../../components/Icons/logo';
 import { useNavigation } from '@react-navigation/native';
 import { signInStyles } from '../SignIn/styles';
 import { welcomeStyles } from './styles';
-import { ThemeContext } from '../../utils/ThemeHandler';
-import { colors } from '../../global/colors';
+import { useThemeObject } from '../../hooks/theme.hook';
+// import { ThemeContext } from '../../utils/ThemeHandler';
+// import { colors } from '../../global/colors';
 
 export function Welcome() {
   const navigation = useNavigation();
   const textoEntrada = 'Veja o que está acontecendo no mundo neste momento.';
 
-  const context = useContext(ThemeContext);
+  const styles = useThemeObject(signInStyles);
+
+  // const context = useContext(ThemeContext);
 
   // necerrário por enquanto
   // useEffect(() => {
@@ -23,26 +26,23 @@ export function Welcome() {
   return (
     <View
       style={[
-        signInStyles.container,
-        { backgroundColor: colors[`medium${context.theme}`] },
+        styles.container,
+        // { backgroundColor: colors[`medium${context.theme}`] },
       ]}
     >
-      <View style={signInStyles.logoContainer}>
+      <View style={styles.logoContainer}>
         <SvgLogo />
       </View>
       <Text style={welcomeStyles.leadText}>{textoEntrada}</Text>
       <RectButton
-        style={signInStyles.button}
+        style={styles.button}
         onPress={() => navigation.navigate('SignUp')}
       >
-        <Text style={signInStyles.buttonText}>Criar conta</Text>
+        <Text style={styles.buttonText}>Criar conta</Text>
       </RectButton>
-      <Text style={signInStyles.bottomMsg}>
+      <Text style={styles.bottomMsg}>
         Já tem uma conta?{' '}
-        <Text
-          style={signInStyles.link}
-          onPress={() => navigation.navigate('SignIn')}
-        >
+        <Text style={styles.link} onPress={() => navigation.navigate('SignIn')}>
           Entrar
         </Text>
       </Text>

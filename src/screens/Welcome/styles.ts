@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../global/colors';
+// import { colors } from '../../global/colors';
 
 export const welcomeStyles = StyleSheet.create({
   leadText: {
@@ -11,6 +11,6 @@ export const welcomeStyles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'left',
     fontSize: 30,
-    color: colors.white,
+    // color: colors.white,
   },
 });

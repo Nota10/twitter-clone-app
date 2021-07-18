@@ -7,8 +7,8 @@ import { Header } from '../../../../components/Header';
 
 import { Tweet } from '../../../../components/Tweet';
 import { feedStyles } from './styles';
-import { ThemeContext } from '../../../../utils/ThemeHandler';
-import { colors } from '../../../../global/colors';
+// import { ThemeContext } from '../../../../utils/ThemeHandler';
+// import { colors } from '../../../../global/colors';
 
 const Feed: React.FC = () => {
   const [data, setData] = useState<Array<any>>([]);
@@ -35,13 +35,13 @@ const Feed: React.FC = () => {
     getData();
   }, []);
 
-  const context = useContext(ThemeContext);
+  // const context = useContext(ThemeContext);
 
   return (
     <View
       style={[
         feedStyles.container,
-        { backgroundColor: colors[`darkest${context.theme}`] },
+        // { backgroundColor: colors[`darkest${context.theme}`] },
       ]}
     >
       <Header title="Últimos Tweets" />
@@ -49,7 +49,7 @@ const Feed: React.FC = () => {
         <ScrollView
           contentContainerStyle={[
             feedStyles.scrollView,
-            { backgroundColor: colors[`darkest${context.theme}`] },
+            // { backgroundColor: colors[`darkest${context.theme}`] },
           ]}
         >
           {data.map(post => (

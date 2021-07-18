@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../../global/colors';
+// import { colors } from '../../../global/colors';
 
 export const profileStyles = StyleSheet.create({
   container: {
@@ -18,8 +18,11 @@ export const profileStyles = StyleSheet.create({
   },
   dataLabel: {
     fontSize: 18,
-    color: colors.white,
+    // color: colors.white,
     fontWeight: 'bold',
   },
-  dataValue: { fontSize: 16, color: colors.white },
+  dataValue: {
+    fontSize: 16,
+    // color: colors.white
+  },
 });

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../global/colors';
+// import { colors } from '../../global/colors';
 
 export const styles = StyleSheet.create({
   container: {
@@ -15,5 +15,5 @@ export const styles = StyleSheet.create({
   },
   imageContainer: { width: '20%' },
   image: { width: 35, height: 35 },
-  title: { fontWeight: 'bold', fontSize: 25, color: colors.white },
+  title: { fontWeight: 'bold', fontSize: 25 },
 });

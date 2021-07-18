@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { View, Text, TextInput, Alert } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
@@ -7,11 +7,13 @@ import Spinner from 'react-native-loading-spinner-overlay';
 
 import { api } from '../../services/api';
 
-import { colors } from '../../global/colors';
-
 import SvgLogo from '../../components/Icons/logo';
 import { signInStyles } from './styles';
-import { ThemeContext } from '../../utils/ThemeHandler';
+import { useThemeObject } from '../../hooks/theme.hook';
+import { useThemeContext } from '../../contexts/ThemeContext';
+import { PURPLE_THEME_ID } from '../../global/colors/purple.theme';
+import { BLUE_THEME_ID } from '../../global/colors/blue.theme';
+import { GRAY_THEME_ID } from '../../global/colors/gray.theme';
 
 const showAlert = (title: string, body: string) =>
   Alert.alert(title, body, [
@@ -23,6 +25,9 @@ const showAlert = (title: string, body: string) =>
 
 export function SignIn() {
   const navigation = useNavigation();
+
+  const styles = useThemeObject(signInStyles);
+  const { theme, toggleTheme } = useThemeContext();
 
   const [email, setEmail] = useState('hey@email.com');
   const [password, setPassword] = useState('123123');
@@ -43,64 +48,72 @@ export function SignIn() {
     }
   };
 
-  const context = useContext(ThemeContext);
-
   return (
-    <View
-      style={[
-        signInStyles.container,
-        { backgroundColor: colors[`medium${context.theme}`] },
-      ]}
-    >
+    <View style={[styles.container]}>
       <Spinner
         visible={isLoading}
         textContent="Carregando..."
-        textStyle={signInStyles.spinnerText}
+        textStyle={styles.spinnerText}
       />
-      <View style={signInStyles.logoContainer}>
+      <View style={styles.logoContainer}>
         <SvgLogo />
       </View>
-      <View style={signInStyles.inputWrapper}>
-        <Text style={signInStyles.inputLabel}>E-mail</Text>
+      <View style={styles.inputWrapper}>
+        <Text style={styles.inputLabel}>E-mail</Text>
         <TextInput
-          style={[
-            signInStyles.input,
-            { borderColor: colors[`light${context.theme}`] },
-          ]}
+          style={[styles.input]}
           onChangeText={text => setEmail(text)}
           placeholder="email@dominio.com"
-          placeholderTextColor={colors.secondary}
+          placeholderTextColor={theme.colors.secondary.main}
           defaultValue={email}
           autoCompleteType="email"
         />
-        <Text style={signInStyles.inputLabel}>Senha</Text>
+        <Text style={styles.inputLabel}>Senha</Text>
         <TextInput
-          style={[
-            signInStyles.input,
-            { borderColor: colors[`light${context.theme}`] },
-          ]}
+          style={[styles.input]}
           onChangeText={text => setPassword(text)}
           placeholder="Sua senha"
-          placeholderTextColor={colors.secondary}
+          placeholderTextColor={theme.colors.secondary.main}
           autoCompleteType="password"
           defaultValue={password}
           secureTextEntry={true}
         />
       </View>
       <RectButton
-        style={signInStyles.button}
+        style={styles.button}
         onPress={() => {
           submitLogin(email, password);
         }}
       >
-        <Text style={signInStyles.buttonText}>Entrar</Text>
+        <Text style={styles.buttonText}>Entrar</Text>
       </RectButton>
-      <Text style={signInStyles.bottomMsg}>
+      <RectButton
+        style={styles.button}
+        onPress={() => {
+          toggleTheme(PURPLE_THEME_ID);
+        }}
+      >
+        <Text style={styles.buttonText}>PURPLE_THEME_ID</Text>
+      </RectButton>
+      <RectButton
+        style={styles.button}
+        onPress={() => {
+          toggleTheme(BLUE_THEME_ID);
+        }}
+      >
+        <Text style={styles.buttonText}>BLUE_THEME_ID</Text>
+      </RectButton>
+      <RectButton
+        style={styles.button}
+        onPress={() => {
+          toggleTheme(GRAY_THEME_ID);
+        }}
+      >
+        <Text style={styles.buttonText}>GRAY_THEME_ID</Text>
+      </RectButton>
+      <Text style={styles.bottomMsg}>
         Não possui conta?{' '}
-        <Text
-          style={signInStyles.link}
-          onPress={() => navigation.navigate('SignUp')}
-        >
+        <Text style={styles.link} onPress={() => navigation.navigate('SignUp')}>
           Registrar-se
         </Text>
       </Text>

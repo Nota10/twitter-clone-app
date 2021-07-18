@@ -1,12 +1,10 @@
 import 'react-native-gesture-handler';
+import React, { useEffect, useState } from 'react';
 
 import axios from 'axios';
 import { Text, View } from 'react-native';
-import React, { useContext, useEffect, useState } from 'react';
 import { Header } from '../../../components/Header';
 import { profileStyles } from './styles';
-import { colors } from '../../../global/colors';
-import { ThemeContext } from '../../../utils/ThemeHandler';
 
 type User = {
   id: number;
@@ -23,8 +21,6 @@ const Profile: React.FC = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        //const { data } = await axios.get(`${API_URL}/orgs/Nota10`);
-        // setData(data);
         console.log('\nFetching posts...');
         const { data } = await axios.get<User>(
           `https://jsonplaceholder.typicode.com/users/1`
@@ -38,13 +34,11 @@ const Profile: React.FC = () => {
     getData();
   }, []);
 
-  const context = useContext(ThemeContext);
-
   return (
     <View
       style={[
         profileStyles.container,
-        { backgroundColor: colors[`dark${context.theme}`] },
+        // { backgroundColor: colors[`dark${context.theme}`] },
       ]}
     >
       <Header title="Perfil" />
@@ -52,7 +46,7 @@ const Profile: React.FC = () => {
         <View
           style={[
             profileStyles.dataContainer,
-            { backgroundColor: colors[`dark${context.theme}`] },
+            // { backgroundColor: colors[`dark${context.theme}`] },
           ]}
         >
           <View>

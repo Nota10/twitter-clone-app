@@ -5,18 +5,19 @@ import { Welcome } from './src/screens/Welcome';
 import { SignUp } from './src/screens/SignUp';
 import { SignIn } from './src/screens/SignIn';
 import { Main } from './src/screens/Main';
+import { ThemeProvider } from './src/contexts/ThemeContext';
+import { PURPLE_THEME } from './src/global/colors/purple.theme';
 
 import { enableScreens } from 'react-native-screens';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { ThemeProvider } from './src/utils/ThemeHandler';
 
 enableScreens();
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
-    <ThemeProvider>
+    <ThemeProvider initialValue={PURPLE_THEME}>
       <NavigationContainer>
         <Stack.Navigator
           mode="card"

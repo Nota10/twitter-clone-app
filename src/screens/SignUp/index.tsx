@@ -4,11 +4,11 @@ import { View, Text, Image, TextInput } from 'react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
-import { colors } from '../../global/colors';
+// import { colors } from '../../global/colors';
 
 import SvgLogo from '../../components/Icons/logo';
 import { signInStyles } from '../SignUp/styles';
-import { ThemeContext } from '../../utils/ThemeHandler';
+// import { ThemeContext } from '../../utils/ThemeHandler';
 
 export function SignUp() {
   const navigation = useNavigation();
@@ -19,13 +19,13 @@ export function SignUp() {
     confirmPassword: '',
   });
 
-  const context = useContext(ThemeContext);
+  // const context = useContext(ThemeContext);
 
   return (
     <View
       style={[
         signInStyles.container,
-        { backgroundColor: colors[`medium${context.theme}`] },
+        // { backgroundColor: colors[`medium${context.theme}`] },
       ]}
     >
       <View style={signInStyles.logoContainer}>
@@ -36,22 +36,22 @@ export function SignUp() {
         <TextInput
           style={[
             signInStyles.input,
-            { borderColor: colors[`light${context.theme}`] },
+            // { borderColor: colors[`light${context.theme}`] },
           ]}
           onChangeText={text => setFormData({ ...formData, email: text })}
           placeholder="email@dominio.com"
-          placeholderTextColor={colors[`light${context.theme}`]}
+          // placeholderTextColor={colors[`light${context.theme}`]}
           autoCompleteType="email"
         />
         <Text style={signInStyles.inputLabel}>Senha</Text>
         <TextInput
           style={[
             signInStyles.input,
-            { borderColor: colors[`light${context.theme}`] },
+            // { borderColor: colors[`light${context.theme}`] },
           ]}
           onChangeText={text => setFormData({ ...formData, password: text })}
           placeholder=""
-          placeholderTextColor={colors[`light${context.theme}`]}
+          // placeholderTextColor={colors[`light${context.theme}`]}
           autoCompleteType="password"
           secureTextEntry={true}
         />
@@ -59,13 +59,13 @@ export function SignUp() {
         <TextInput
           style={[
             signInStyles.input,
-            { borderColor: colors[`light${context.theme}`] },
+            // { borderColor: colors[`light${context.theme}`] },
           ]}
           onChangeText={text =>
             setFormData({ ...formData, confirmPassword: text })
           }
           placeholder=""
-          placeholderTextColor={colors[`light${context.theme}`]}
+          // placeholderTextColor={colors[`light${context.theme}`]}
           autoCompleteType="password"
           secureTextEntry={true}
         />
