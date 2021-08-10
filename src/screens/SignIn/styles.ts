@@ -5,9 +5,10 @@ export const signInStyles = (theme: Theme) => {
   const styles = StyleSheet.create({
     button: {
       height: 45,
-      width: '70%',
+      width: '100%',
       backgroundColor: theme.colors.primary.dark,
       borderRadius: 80,
+      alignSelf: 'center',
       justifyContent: 'center',
       alignItems: 'center',
     },
@@ -52,9 +53,8 @@ export const signInStyles = (theme: Theme) => {
       justifyContent: 'flex-start',
     },
     bottomMsg: {
-      position: 'absolute',
-      bottom: 30,
-      left: 60,
+      marginTop: '50%',
+      alignSelf: 'center',
       color: theme.colors.common.white,
     },
     link: {
