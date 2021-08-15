@@ -12,6 +12,7 @@ import { Explore } from './Explore';
 import { useNavigation } from '@react-navigation/native';
 import { useThemeObject } from '../../../hooks/theme.hook';
 import { useThemeContext } from '../../../contexts/ThemeContext';
+import { onSignOut } from '../../../services/auth';
 
 const Tab = createBottomTabNavigator();
 
@@ -19,37 +20,6 @@ export function Home() {
   const navigation = useNavigation();
   const styles = useThemeObject(homeStyles);
   const { theme } = useThemeContext();
-
-  navigation.addListener('beforeRemove', e => {
-    // Prevent default behavior of leaving the screen
-    e.preventDefault();
-
-    console.log('OPA');
-
-    // Prompt the user before leaving the screen
-    Alert.alert(
-      'Tem certeza?',
-      'Você irá sair de sua conta e voltará para a tela inicial',
-      [
-        {
-          text: 'Voltar',
-          style: 'cancel',
-          onPress: () => {
-            return;
-          },
-        },
-        {
-          text: 'Sair',
-          style: 'default',
-          onPress: () => {
-            AsyncStorage.removeItem('email');
-            AsyncStorage.removeItem('password');
-            navigation.dispatch(e.data.action);
-          },
-        },
-      ]
-    );
-  });
 
   return (
     <Tab.Navigator

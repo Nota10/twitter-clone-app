@@ -18,6 +18,15 @@ export const signUpStyles = (theme: Theme) => {
       fontSize: 20,
       fontWeight: 'bold',
     },
+    pageTitle: {
+      marginBottom: 25,
+      justifyContent: 'center',
+      alignItems: 'center',
+      fontWeight: 'bold',
+      textAlign: 'left',
+      fontSize: 24,
+      color: theme.colors.common.white,
+    },
     inputWrapper: {
       width: '70%',
       marginTop: 65,

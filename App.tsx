@@ -12,13 +12,31 @@ import { enableScreens } from 'react-native-screens';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'react-native';
+import { isSignedIn } from './src/services/auth';
 
 enableScreens();
 const Stack = createStackNavigator();
 
-export default function App() {
-  return (
-    <ThemeProvider initialValue={PURPLE_THEME}>
+//export default function App() {
+  //return (
+export default class App extends React.Component {
+  state = {
+    signed: false,
+    signLoaded: false
+  }
+
+  componentDidMount() {
+    isSignedIn()
+      .then(res => this.setState({signed: res, signLoaded: true}))
+      .catch(err => console.log(err));
+  }
+
+  render() {
+    const { signLoaded, signed } = this.state;
+
+    if(!signLoaded) { return null; }
+
+    return <ThemeProvider initialValue={PURPLE_THEME}>
       <StatusBar
         barStyle="light-content"
         backgroundColor="transparent"
@@ -30,6 +48,7 @@ export default function App() {
           screenOptions={{
             headerShown: false,
           }}
+          initialRouteName={signed ? "Main" : "SignIn"}
         >
           <Stack.Screen
             name="Welcome"
@@ -41,6 +60,6 @@ export default function App() {
           <Stack.Screen name="Main" component={Main} />
         </Stack.Navigator>
       </NavigationContainer>
-    </ThemeProvider>
-  );
+    </ThemeProvider>;
+  }
 }

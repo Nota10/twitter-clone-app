@@ -14,6 +14,7 @@ import { useThemeContext } from '../../contexts/ThemeContext';
 import { PURPLE_THEME_ID } from '../../global/colors/purple.theme';
 import { BLUE_THEME_ID } from '../../global/colors/blue.theme';
 import { GRAY_THEME_ID } from '../../global/colors/gray.theme';
+import { onSignIn } from '../../services/auth';
 
 const showAlert = (title: string, body: string) =>
   Alert.alert(title, body, [
@@ -39,12 +40,12 @@ export function SignIn() {
       setIsLoading(true);
       const { data } = await api.post('/auth/login', { email, password });
       console.log('data: ', data);
-
+      onSignIn();
       navigation.navigate('Main');
     } catch (error) {
-      showAlert('Dados incorretos', 'Verifique novamente');
+      showAlert('Erro', 'Houve um erro ao enviar as informações, tente novamenta mais tarde');
     } finally {
-      setIsLoading(true);
+      setIsLoading(false);
     }
   };
 
