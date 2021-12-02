@@ -52,6 +52,7 @@ const Explore = () => {
   }
 
   useEffect(() => {
+    setLoading(true);
     getData();
   }, []);
 

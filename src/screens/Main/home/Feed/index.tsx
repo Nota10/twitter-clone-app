@@ -26,7 +26,7 @@ const Feed: React.FC = () => {
 
   const getData = async () => {
     try {
-      const { data } = await api.authGet('/tweet');
+      const { data } = await api.authGet('/feed');
       setData(data);
     } finally {
       setLoading(false);
@@ -78,6 +78,7 @@ const Feed: React.FC = () => {
   }
 
   useEffect(() => {
+    setLoading(true);
     getData();
   }, []);
 

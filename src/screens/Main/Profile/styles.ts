@@ -9,6 +9,31 @@ export const profileStyles = (theme: Theme) => {
       justifyContent: 'flex-start',
       backgroundColor: theme.colors.secondary.dark,
     },
+    formContainer: {
+      flex: 1,
+      alignItems: 'flex-start',
+      justifyContent: 'flex-start',
+      backgroundColor: theme.colors.secondary.dark,
+      margin: '5%'
+    },
+    formText: {
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+      color: theme.colors.common.white,
+      fontSize: 20,
+    },
+    formInput: {
+      marginVertical: 12,
+      width: '100%',
+      borderWidth: 1,
+      borderRadius: 10,
+      borderColor: theme.colors.common.white,
+      backgroundColor: theme.colors.secondary.darkest,
+      color: theme.colors.common.white,
+      fontSize: 20,
+      padding: 10,
+      textAlignVertical: 'top'
+    },
     inputLabel: {
       marginBottom: 5,
       justifyContent: 'center',
@@ -35,11 +60,27 @@ export const profileStyles = (theme: Theme) => {
       marginVertical: '5%',
     },
     scrollView: {
-      flex: 1,
+      width: '100%',
       alignContent: 'center',
-      justifyContent: 'flex-start',
+      justifyContent: 'center',
       backgroundColor: theme.colors.secondary.dark,
-    }
+      paddingBottom: 100
+    },
+    button: {
+      height: 45,
+      width: '100%',
+      backgroundColor: theme.colors.primary.dark,
+      borderRadius: 80,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    buttonText: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      color: theme.colors.common.white,
+      fontSize: 16,
+      fontWeight: 'bold',
+    },
   });
   return styles;
 };
