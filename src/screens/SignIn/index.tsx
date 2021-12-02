@@ -14,6 +14,7 @@ import { useThemeContext } from '../../contexts/ThemeContext';
 import { PURPLE_THEME_ID } from '../../global/colors/purple.theme';
 import { BLUE_THEME_ID } from '../../global/colors/blue.theme';
 import { GRAY_THEME_ID } from '../../global/colors/gray.theme';
+import { onSignIn, onSignOut } from '../../services/auth';
 
 const showAlert = (title: string, body: string) =>
   Alert.alert(title, body, [
@@ -39,12 +40,26 @@ export function SignIn() {
       setIsLoading(true);
       const { data } = await api.post('/auth/login', { email, password });
       console.log('data: ', data);
-
+      onSignOut();
+      // updateToken(data.accesToken);
+      onSignIn(data.accessToken, data.userId);
       navigation.navigate('Main');
     } catch (error) {
-      showAlert('Dados incorretos', 'Verifique novamente');
+      if (error.response) {
+        // Request made and server responded
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.log(error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error', error.message);
+      }
+      showAlert('Erro', 'Houve um erro ao enviar as informações, tente novamenta mais tarde');
     } finally {
-      setIsLoading(true);
+      setIsLoading(false);
     }
   };
 

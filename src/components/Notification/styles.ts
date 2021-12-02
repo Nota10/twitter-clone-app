@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { Theme } from '../../@types/colors';
 
-export const tweetStyles = (theme: Theme) => {
+export const notificationStyles = (theme: Theme) => {
   const styles = StyleSheet.create({
     rootContainer: {
       flex: 1,
@@ -12,6 +12,11 @@ export const tweetStyles = (theme: Theme) => {
       paddingHorizontal: 15,
       borderColor: theme.colors.secondary.darkest,
       borderTopWidth: 1,
+    },
+    closeIcon: {
+      position: 'absolute',
+      top: 0,
+      right: 0
     },
     container: {
       flexDirection: 'row',
@@ -47,9 +52,6 @@ export const tweetStyles = (theme: Theme) => {
       marginTop: 15,
       justifyContent: 'space-between',
     },
-    iconText: {
-      color: theme.colors.common.white
-    }
   });
 
   return styles;

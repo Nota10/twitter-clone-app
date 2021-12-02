@@ -5,8 +5,6 @@ export const homeStyles = (theme: Theme) => {
   const styles = StyleSheet.create({
     tabNavigator: {
       height: 70,
-      padding: 0,
-      paddingTop: 10,
       backgroundColor: theme.colors.secondary.dark,
       margin: 0,
       borderTopColor: theme.colors.secondary.dark,

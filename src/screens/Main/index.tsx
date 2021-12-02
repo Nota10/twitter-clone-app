@@ -17,8 +17,9 @@ import { PURPLE_THEME_ID } from '../../global/colors/purple.theme';
 import { BLUE_THEME_ID } from '../../global/colors/blue.theme';
 import { mainStyles } from './styles';
 import { useThemeObject } from '../../hooks/theme.hook';
-import { View } from 'react-native';
+import { Alert, View } from 'react-native';
 import { GRAY_THEME_ID } from '../../global/colors/gray.theme';
+import { onSignIn, onSignOut } from '../../services/auth';
 
 const Drawer = createDrawerNavigator();
 
@@ -27,6 +28,30 @@ export function Main() {
 
   const styles = useThemeObject(mainStyles);
   const { theme, toggleTheme } = useThemeContext();
+
+  const signOut = () => {
+    Alert.alert(
+      'Tem certeza?',
+      'Você irá sair de sua conta e voltará para a tela inicial',
+      [
+        {
+          text: 'Voltar',
+          style: 'cancel',
+          onPress: () => {
+            return;
+          },
+        },
+        {
+          text: 'Sair',
+          style: 'default',
+          onPress: () => {
+            onSignOut();
+            navigation.navigate("SignIn");
+          },
+        },
+      ]
+    );
+  }
 
   return (
     <Drawer.Navigator
@@ -44,6 +69,21 @@ export function Main() {
         return (
           <DrawerContentScrollView {...props}>
             <DrawerItemList {...props} />
+            <DrawerItem
+              icon={(focused, size, color) => (
+                <AntDesign
+                  name="arrowleft"
+                  color={color}
+                  size={22}
+                  style={{ paddingLeft: 15, color: theme.colors.common.white }}
+                />
+              )}
+              label="Sair"
+              activeTintColor={theme.colors.secondary.dark}
+              activeBackgroundColor={theme.colors.secondary.main}
+              labelStyle={{fontSize: 22, color: theme.colors.common.white}}
+              onPress={() => signOut()}
+            />
             <View style={styles.items}>
               <DrawerItem
                 style={styles.purple}

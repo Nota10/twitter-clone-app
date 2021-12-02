@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { Theme } from '../../../../@types/colors';
 
-export const feedStyles = (theme: Theme) => {
+export const notificationsStyles = (theme: Theme) => {
   const styles = StyleSheet.create({
     button: {
       height: 45,
@@ -54,7 +54,6 @@ export const feedStyles = (theme: Theme) => {
       alignContent: 'center',
       justifyContent: 'center',
       backgroundColor: theme.colors.secondary.dark,
-      paddingBottom: 100
     }
   });
   return styles;

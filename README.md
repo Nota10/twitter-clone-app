@@ -16,4 +16,9 @@ npm run start
 expo start
 ```
 
+#### Accounts
+```hey@email.com
+123123
+```
+
 More commands at the scripts section inside `package.json`
