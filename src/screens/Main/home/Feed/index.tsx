@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 
 import axios from 'axios';
-import { SafeAreaView, ScrollView, View, Text, Alert } from 'react-native';
+import { SafeAreaView, ScrollView, View, Text, Alert, RefreshControl } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { Header } from '../../../../components/Header';
 
@@ -22,16 +22,24 @@ const Feed: React.FC = () => {
 
   const [tweetText, setTweetText] = useState('');
 
-  const userId = getUserid();
+  const [refreshing, setRefreshing] = useState(false);
+
+  const [userId, setUserId] = useState('');
 
   const getData = async () => {
     try {
+      setUserId(await getUserid());
       const { data } = await api.authGet('/feed');
       setData(data);
     } finally {
       setLoading(false);
     }
   };
+
+  const onRefresh = async () => {
+    setLoading(true);
+    getData();
+  }
 
   const handleSubmit = async () => {
 
@@ -86,7 +94,13 @@ const Feed: React.FC = () => {
     <View style={styles.container}>
       <Header title="Últimos Tweets" />
       <SafeAreaView>
-        <ScrollView contentContainerStyle={styles.scrollView}>
+        <ScrollView contentContainerStyle={styles.scrollView}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }>
           <Spinner
             visible={loading}
             textContent="Carregando..."
@@ -96,7 +110,7 @@ const Feed: React.FC = () => {
             <Text style={styles.formText}>
               O que tem te deixado pistola?
             </Text>
-            <TextInput style={styles.formInput} multiline={true} numberOfLines={4} maxLength={280} onChangeText={text => setTweetText(text)} />
+            <TextInput style={styles.formInput} multiline={true} numberOfLines={4} maxLength={144} value={tweetText} onChangeText={text => setTweetText(text)} />
             <RectButton
               style={styles.button}
               onPress={() => {

@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react';
 
 import axios from 'axios';
-import { Text, View, SafeAreaView, ScrollView, TextInput, Alert } from 'react-native';
+import { Text, View, SafeAreaView, ScrollView, TextInput, Alert, RefreshControl } from 'react-native';
 import { Header } from '../../../components/Header';
 import { profileStyles } from './styles';
 import { useThemeObject } from '../../../hooks/theme.hook';
@@ -26,8 +26,22 @@ const Profile: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [dataTweets, setDataTweets] = useState([]);
   const [userId, setUserId] = useState();
+  const [refreshing, setRefreshing] = useState(false);
 
   const styles = useThemeObject(profileStyles);
+
+
+  const getData = async () => {
+    setUserId(await getUserid());
+    try {
+      console.log('\nFetching posts...');
+      const data = await api.authGet('/auth/protected')
+      console.log(data);
+      setData(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const getTweetData = async () => {
     try {
@@ -62,19 +76,13 @@ const Profile: React.FC = () => {
     }
   }
 
-  useEffect(() => {
-    const getData = async () => {
-      setUserId(await getUserid());
-      try {
-        console.log('\nFetching posts...');
-        const data = await api.authGet('/auth/protected')
-        console.log(data);
-        setData(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  const onRefresh = async () => {
+    setLoading(true);
+    getData();
+    getTweetData();
+  }
 
+  useEffect(() => {
     setLoading(true);
     getData();
     getTweetData();
@@ -84,7 +92,15 @@ const Profile: React.FC = () => {
     <View style={styles.container}>
       <Header title="Perfil" />
       <SafeAreaView>
-        <ScrollView contentContainerStyle={styles.scrollView}>
+        <ScrollView 
+        contentContainerStyle={styles.scrollView}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }
+        >
           <Spinner
             visible={loading}
             textContent="Carregando..."

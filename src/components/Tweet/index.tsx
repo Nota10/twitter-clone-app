@@ -8,11 +8,20 @@ import { useThemeObject } from '../../hooks/theme.hook';
 import { useThemeContext } from '../../contexts/ThemeContext';
 import { api } from '../../services/api';
 import { getToken } from '../../services/auth';
+import moment from 'moment';
 
 export function Tweet({ post, executeAction, loading, userId }: any) {
   const styles = useThemeObject(tweetStyles);
 
   const id = post._id;
+
+  const now = new Date();
+  const then = post.createdAt;
+
+  const diff = moment.duration(moment(now).diff(moment(then)));
+  const m = diff.minutes().toString();
+  const h = diff.hours().toString();
+  const time = diff.minutes() > 1 ? ((h.length == 1 ? '0' : '') + h + ':' + (m.length == 1 ? '0' : '') + m) : 'Agora';
 
   const { theme } = useThemeContext();
 
@@ -35,13 +44,13 @@ export function Tweet({ post, executeAction, loading, userId }: any) {
               {post.user.name || 'Francis'}&nbsp;
             </Text>
             <Text style={styles.textUserTag}>
-              {post.user.username ? `@${post.user.username}` : `@User_${post.user.id}`} • {new Date(post.createdAt).toTimeString().split(' ')[0]}
+              {post.user.username ? `@${post.user.username}` : `@User_${post.user.id}`} • {time}
             </Text>
           </View>
           <Text style={styles.textBody}>{post.body}</Text>
           <Text style={styles.textHashtags}>
             {post.hashtags && (post.hashtags.map(hashtag => (
-              <Text>{hashtag}</Text>
+              <Text>#{hashtag} </Text>
             )))}
           </Text>
           <View style={styles.iconsContainer}>
@@ -54,14 +63,14 @@ export function Tweet({ post, executeAction, loading, userId }: any) {
             <Text style={loading ? null : styles.iconText}>{post.likeCount}</Text>
             <AntDesign
               onPress={loading ? () => {} : () => handleTweetAction('like')}
-              name={post.likeList.indexOf(post.user.id) != -1 ? 'like1' : 'like2'}
+              name={post.likeList.indexOf(userId) != -1 ? 'like1' : 'like2'}
               color={loading ? theme.colors.secondary.light : theme.colors.common.white}
               size={22}
             />
             <Text style={loading ? null : styles.iconText}>{post.deslikeCount}</Text>
             <AntDesign
               onPress={loading ? () => {} : () => handleTweetAction('deslike')}
-              name={post.deslikeList.indexOf(post.user.id) != -1 ? 'dislike1' : 'dislike2'}
+              name={post.deslikeList.indexOf(userId) != -1 ? 'dislike1' : 'dislike2'}
               color={loading ? theme.colors.secondary.light : theme.colors.common.white}
               size={22}
             />
@@ -71,7 +80,7 @@ export function Tweet({ post, executeAction, loading, userId }: any) {
               color={loading ? theme.colors.secondary.light : theme.colors.common.white}
               size={22}
             />
-            {/*userId*/post.user.id == post.user.id && (
+            {userId == post.user.id && (
              <AntDesign 
               onPress={loading ? () => {} : () => handleTweetAction('delete')}
               name="delete"
