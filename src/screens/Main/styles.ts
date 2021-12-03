@@ -35,11 +35,10 @@ export const mainStyles = (theme: Theme) => {
       borderWidth: 2,
     },
     items: {
+      marginTop: 10,
       flexDirection: 'row',
       alignContent: 'center',
-      marginTop: 520,
-      alignItems: 'center',
-      justifyContent: 'center',
+      alignSelf: 'center'
     },
   });
   return styles;

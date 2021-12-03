@@ -20,6 +20,7 @@ import { useThemeObject } from '../../hooks/theme.hook';
 import { Alert, View } from 'react-native';
 import { GRAY_THEME_ID } from '../../global/colors/gray.theme';
 import { onSignIn, onSignOut } from '../../services/auth';
+import { PublicProfile } from './PublicProfile';
 
 const Drawer = createDrawerNavigator();
 
@@ -28,6 +29,10 @@ export function Main() {
 
   const styles = useThemeObject(mainStyles);
   const { theme, toggleTheme } = useThemeContext();
+
+  const handleProfileAction = (userId: object | undefined) => {
+    navigation.navigate('Profile', {userId: userId})
+  }
 
   const signOut = () => {
     Alert.alert(
@@ -119,9 +124,9 @@ export function Main() {
             />
           ),
         }}
-        component={Home}
+        children={() => <Home handleProfileAction={(userId) => {handleProfileAction(userId)}}/>}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="Profile"
         options={{
           drawerLabel: 'Perfil',
@@ -136,6 +141,23 @@ export function Main() {
           ),
         }}
         component={Profile}
+      /> */}
+      <Drawer.Screen
+        name="Profile"
+        options={{
+          drawerLabel: 'Perfil',
+          headerTintColor: theme.colors.secondary.light,
+          drawerIcon: ({ color, size }) => (
+            <AntDesign
+              name="user"
+              color={color}
+              size={size}
+              style={{ paddingLeft: 15, color: theme.colors.common.white }}
+            />
+          ),
+        }}
+        initialParams={{userId:null}}
+        component={PublicProfile}
       />
     </Drawer.Navigator>
   );

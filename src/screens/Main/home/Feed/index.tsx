@@ -13,7 +13,7 @@ import { RectButton, TextInput } from 'react-native-gesture-handler';
 import { getToken, getUserid } from '../../../../services/auth';
 import Spinner from 'react-native-loading-spinner-overlay';
 
-const Feed: React.FC = () => {
+const Feed = ({handleProfileAction}:any) => {
   const [data, setData] = useState<Array<any>>([]);
 
   const styles = useThemeObject(feedStyles);
@@ -68,7 +68,6 @@ const Feed: React.FC = () => {
   const handleTweetAction= async (action:String, tweetId:any) => {
     switch(action) {
       case 'expand':
-        console.log('Expandindo...')
       break;
       case 'delete':
         setLoading(true);
@@ -120,8 +119,8 @@ const Feed: React.FC = () => {
               <Text style={styles.buttonText}>Enviar</Text>
             </RectButton>
           </View>
-          {data && (data.map(post => (
-            <Tweet key={post._id} post={post} executeAction={handleTweetAction} loading={loading} userId={userId} />
+          {data && (data.map((post,index) => (
+            <Tweet key={`post_${index}`} post={post} handleProfileAction={handleProfileAction} executeAction={handleTweetAction} loading={loading} userId={userId} />
           )))}
           {!data && (
             <Text>Nenhum tweet encontrado</Text>

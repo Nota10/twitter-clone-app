@@ -1,40 +1,59 @@
 import 'react-native-gesture-handler';
 
 import axios from 'axios';
-import { SafeAreaView, ScrollView, TextInput, View } from 'react-native';
+import { SafeAreaView, ScrollView, TextInput, View, Text, Alert } from 'react-native';
 import React, { useContext, useEffect, useState } from 'react';
 import { Header } from '../../../../components/Header';
+import { UserItem } from '../../../../components/UserItem';
 
 import { Tweet } from '../../../../components/Tweet';
 import { exploreStyles } from './styles';
 import Spinner from 'react-native-loading-spinner-overlay';
 import { api } from '../../../../services/api';
 import { useThemeObject } from '../../../../hooks/theme.hook';
-import { feedStyles } from '../Feed/styles';
 import { getUserid } from '../../../../services/auth';
+import { useNavigation } from '@react-navigation/native';
 // import { ThemeContext } from '../../../../utils/ThemeHandler';
 // import { colors } from '../../../../global/colors';
 
-const Explore = () => {
-  const [data, setData] = useState<Array<User>>([]);
+const Explore = ({handleProfileAction}:any) => {
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const styles = useThemeObject(feedStyles);
+  const [mode, setMode] = useState('undefined');
+  const styles = useThemeObject(exploreStyles);
   const userId = getUserid();
   const [searchText, setSearchText] = useState('');
 
+  const getMode = (text:string) => {
+    let char = text[0];
+    switch(char) {
+      case '@': return 'users';
+      case '#': return 'tweets';
+      default:  return 'undefined';
+    }
+  }
+
   const getData = async () => {
-    try {
-      const { data } = await api.authGet('/tweet');
-      setData(data);
-    } finally {
+    setLoading(true);
+    setData([]);
+    setMode(getMode(searchText));
+    if(mode == 'undefined') {
       setLoading(false);
+      return Alert.alert('Ops! Pesquisa inválida!', 'Sua pesquisa deve começar com @ para procurar um usuário ou # para procurar uma hashtag.');
+    }else{
+      try {
+        const { data } = await api.authPost('/search', {'search': searchText});
+        setData(data);
+        setLoading(false);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
   const handleTweetAction= async (action:String, tweetId:any) => {
     switch(action) {
       case 'expand':
-        console.log('Expandindo...')
       break;
       case 'delete':
         setLoading(true);
@@ -51,8 +70,28 @@ const Explore = () => {
     }
   }
 
+  const componentMapping = () => {
+    let ret;
+    switch(mode) {
+      case 'tweets':
+        ret = data.map((post,index) => (
+          <Tweet key={`explore_tweet_${index}`} post={post} executeAction={handleTweetAction} loading={loading} userId={userId} />
+        ));
+      break;
+      case 'users':
+        ret =  data.map((post,index) => (
+          <UserItem key={`explore_user_${index}`} post={post} executeAction={handleProfileAction} loading={loading} userId={userId} />
+        ));
+      break;
+      default:
+        ret = <Text style={styles.searchText}>Pesquise por @NomeUsuário ou #Hashtag</Text>
+      break;
+    }
+    return ret;
+  }
+
   useEffect(() => {
-    setLoading(true);
+    // setLoading(true);
     getData();
   }, []);
 
@@ -61,7 +100,7 @@ const Explore = () => {
   return (
     <View
       style={[
-        exploreStyles.container,
+        styles.container,
         // { backgroundColor: colors[`darkest${context.theme}`] },
       ]}
     >
@@ -74,14 +113,9 @@ const Explore = () => {
             textStyle={styles.formText}
           />
           <View style={styles.formContainer}>
-            <TextInput placeholderTextColor="#fff" style={styles.formInput} maxLength={80} placeholder="Pesquisar..." onSubmitEditing={() => {console.log('Enviando...')}} onChangeText={text => setSearchText(text)} />
+            <TextInput placeholderTextColor="#fff" style={{...styles.formInput, width:'100%'}} maxLength={80} placeholder="Pesquisar..." onSubmitEditing={() => {getData()}} onChangeText={setSearchText} />
           </View>
-          {data && (data.map(post => (
-            <Tweet key={post._id} post={post} executeAction={handleTweetAction} loading={loading} userId={userId} />
-          )))}
-          {!data && (
-            <Text>Nenhum tweet encontrado</Text>
-          )}
+          {componentMapping()}
         </ScrollView>
       </SafeAreaView>
     </View>

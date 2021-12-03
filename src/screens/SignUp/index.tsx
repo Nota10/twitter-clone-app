@@ -37,11 +37,9 @@ export function SignUp() {
   const styles = useThemeObject(signUpStyles);
 
   const submitForm = async () => {
-    console.log('Enviando...');
     try {
       setIsLoading(true);
       const { data } = await api.post('/auth/register', formData);
-      console.log('data: ', data);
     } catch (error) {
       console.log(error);
       showAlert('Erro', 'Houve um erro ao enviar as informações, tente novamenta mais tarde');

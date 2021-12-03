@@ -22,7 +22,6 @@ type ThemeContextProps = {
 export const ThemeContext = createContext<ThemeContextProps>({
   theme: PURPLE_THEME,
   toggleTheme: () => {
-    console.log('hey');
   },
 });
 

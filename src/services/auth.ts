@@ -2,10 +2,11 @@ import { AsyncStorage } from 'react-native';
 
 export const TOKEN_KEY = "@RocketSeat:token";
 export const USER_ID   = "@RocketSeat:userid";
+export const USER_DATA   = "@RocketSeat:userData";
 
-export const onSignIn =  (token:string, userId:string) =>  { 
-  AsyncStorage.setItem(TOKEN_KEY, token);
-  AsyncStorage.setItem(USER_ID, userId);
+export const onSignIn =  (data:any) =>  { 
+  AsyncStorage.setItem(TOKEN_KEY, data.accessToken);
+  AsyncStorage.setItem(USER_ID, data.userId);
 }
 
 export const onSignOut =  () =>  {

@@ -17,7 +17,7 @@ import { onSignOut } from '../../../services/auth';
 
 const Tab = createBottomTabNavigator();
 
-export function Home() {
+export function Home({handleProfileAction}:any) {
   const navigation = useNavigation();
   const styles = useThemeObject(homeStyles);
   const { theme } = useThemeContext();
@@ -33,11 +33,12 @@ export function Home() {
         style: {
           ...styles.tabNavigator,
         },
+        
       }}
     >
       <Tab.Screen
         name="Feed"
-        component={Feed}
+        children={()=><Feed handleProfileAction={handleProfileAction}></Feed>}
         options={{
           tabBarLabel: '',
           tabBarIcon: ({ color, size }) => (
@@ -47,7 +48,7 @@ export function Home() {
       />
       <Tab.Screen
         name="Explore"
-        component={Explore}
+        children={()=><Explore handleProfileAction={handleProfileAction}></Explore>}
         options={{
           tabBarLabel: '',
           tabBarIcon: ({ color, size }) => (

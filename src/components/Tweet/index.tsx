@@ -10,7 +10,7 @@ import { api } from '../../services/api';
 import { getToken } from '../../services/auth';
 import moment from 'moment';
 
-export function Tweet({ post, executeAction, loading, userId }: any) {
+export function Tweet({ post, handleProfileAction, executeAction, loading, userId }: any) {
   const styles = useThemeObject(tweetStyles);
 
   const id = post._id;
@@ -40,19 +40,17 @@ export function Tweet({ post, executeAction, loading, userId }: any) {
         </View>
         <View style={styles.contentContainer}>
           <View style={styles.contentContainerRows}>
-            <Text style={styles.textUserName}>
+            <Text style={styles.textUserName} onPress={() => {handleProfileAction(post.user.id)}}>
               {post.user.name || 'Francis'}&nbsp;
             </Text>
-            <Text style={styles.textUserTag}>
+            <Text style={styles.textUserTag} onPress={() => {handleProfileAction(post.user.id)}}>
               {post.user.username ? `@${post.user.username}` : `@User_${post.user.id}`} • {time}
             </Text>
           </View>
           <Text style={styles.textBody}>{post.body}</Text>
-          <Text style={styles.textHashtags}>
-            {post.hashtags && (post.hashtags.map(hashtag => (
-              <Text>#{hashtag} </Text>
-            )))}
-          </Text>
+          {post.hashtags && (post.hashtags.map(hashtag => (
+            <Text style={styles.textHashtags}>#{hashtag} </Text>
+          )))}
           <View style={styles.iconsContainer}>
             <AntDesign
               onPress={loading ? () => {} : () => handleTweetAction('expand')}
@@ -74,19 +72,20 @@ export function Tweet({ post, executeAction, loading, userId }: any) {
               color={loading ? theme.colors.secondary.light : theme.colors.common.white}
               size={22}
             />
-            <AntDesign
-              onPress={loading ? () => {} : () => handleTweetAction('share')}
-              name="sharealt"
-              color={loading ? theme.colors.secondary.light : theme.colors.common.white}
-              size={22}
-            />
-            {userId == post.user.id && (
+            {userId == post.user.id ? (
              <AntDesign 
               onPress={loading ? () => {} : () => handleTweetAction('delete')}
               name="delete"
               color={loading ? theme.colors.secondary.light : theme.colors.common.white}
               size={22}
              /> 
+            ) : (
+              <AntDesign
+                onPress={loading ? () => {} : () => handleTweetAction('share')}
+                name="sharealt"
+                color={loading ? theme.colors.secondary.light : theme.colors.common.white}
+                size={22}
+              />
             )}
           </View>
         </View>

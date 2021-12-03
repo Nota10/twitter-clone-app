@@ -39,24 +39,12 @@ export function SignIn() {
     try {
       setIsLoading(true);
       const { data } = await api.post('/auth/login', { email, password });
-      console.log('data: ', data);
       onSignOut();
       // updateToken(data.accesToken);
-      onSignIn(data.accessToken, data.userId);
+      onSignIn(data);
       navigation.navigate('Main');
     } catch (error) {
-      if (error.response) {
-        // Request made and server responded
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
-      } else if (error.request) {
-        // The request was made but no response was received
-        console.log(error.request);
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        console.log('Error', error.message);
-      }
+      console.log(error);
       showAlert('Erro', 'Houve um erro ao enviar as informações, tente novamenta mais tarde');
     } finally {
       setIsLoading(false);

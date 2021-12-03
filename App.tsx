@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Welcome } from './src/screens/Welcome';
 import { SignUp } from './src/screens/SignUp';
@@ -19,24 +19,22 @@ const Stack = createStackNavigator();
 
 //export default function App() {
   //return (
-export default class App extends React.Component {
-  state = {
-    signed: false,
-    signLoaded: false
-  }
+const App = () => {
+  const [signed, setSigned] = useState(false);
+  const [signLodaded, setSignedLoaded] = useState(false);
 
-  componentDidMount() {
+  useEffect(() => {
     isSignedIn()
-      .then(res => this.setState({signed: res, signLoaded: true}))
+      .then(res => {
+        setSigned(res);
+        setSignedLoaded(true);
+      })
       .catch(err => console.log(err));
-  }
+  }, [])
 
-  render() {
-    const { signLoaded, signed } = this.state;
-
-    if(!signLoaded) { return null; }
-
-    return <ThemeProvider initialValue={PURPLE_THEME}>
+  return (!signLodaded) ? null : 
+    (
+      <ThemeProvider initialValue={PURPLE_THEME}>
       <StatusBar
         barStyle="light-content"
         backgroundColor="transparent"
@@ -60,6 +58,8 @@ export default class App extends React.Component {
           <Stack.Screen name="Main" component={Main} />
         </Stack.Navigator>
       </NavigationContainer>
-    </ThemeProvider>;
-  }
+      </ThemeProvider>
+    )
 }
+
+export default App;
