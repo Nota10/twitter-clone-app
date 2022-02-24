@@ -94,26 +94,37 @@ const Explore = ({ handleProfileAction }: any) => {
     let ret;
     switch (mode) {
       case 'tweets':
-        ret = data.map((post, index) => (
-          <Tweet
-            key={`explore_tweet_${index}`}
-            post={post}
-            executeAction={handleTweetAction}
-            loading={loading}
-            userId={userId}
-          />
-        ));
+        ret =
+          data && data.length != 0 ? (
+            data.map((post, index) => (
+              <Tweet
+                key={`explore_tweet_${index}`}
+                post={post}
+                executeAction={() => {}}
+                loading={loading}
+                userId={userId}
+              />
+            ))
+          ) : (
+            <Text style={styles.searchText}>Nenhuma hashtag encontrada</Text>
+          );
         break;
       case 'users':
-        ret = data.map((post, index) => (
-          <UserItem
-            key={`explore_user_${index}`}
-            post={post}
-            executeAction={handleProfileAction}
-            loading={loading}
-            userId={userId}
-          />
-        ));
+        console.log(data);
+        ret =
+          data && data.length != 0 ? (
+            data.map((post, index) => (
+              <UserItem
+                key={`explore_user_${index}`}
+                post={post}
+                executeAction={handleProfileAction}
+                loading={loading}
+                userId={userId}
+              />
+            ))
+          ) : (
+            <Text style={styles.searchText}>Nenhum usuário encontrado</Text>
+          );
         break;
       default:
         ret = (

@@ -140,6 +140,7 @@ const Feed = ({ handleProfileAction }: any) => {
                 executeAction={handleTweetAction}
                 loading={loading}
                 userId={userId}
+                sameUser={userId === post.user.id}
               />
             ))}
           {!data && <Text>Nenhum tweet encontrado</Text>}

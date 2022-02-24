@@ -44,9 +44,7 @@ const PublicProfile: React.FC = ({ route, navigation }: any) => {
   const getData = async () => {
     const selfId = await getUserid();
 
-    if (selfId === userId) {
-      setSameUser(true);
-    }
+    setSameUser(!userId || selfId === userId);
 
     userId = userId || selfId;
 
@@ -111,7 +109,6 @@ const PublicProfile: React.FC = ({ route, navigation }: any) => {
   };
 
   useEffect(() => {
-    console.log('USAHDIAHDAIUH');
     setLoading(true);
     setData([]);
     setDataTweets([]);
