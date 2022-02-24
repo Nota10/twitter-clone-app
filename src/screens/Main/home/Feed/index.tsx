@@ -1,7 +1,14 @@
 import 'react-native-gesture-handler';
 
 import axios from 'axios';
-import { SafeAreaView, ScrollView, View, Text, Alert, RefreshControl } from 'react-native';
+import {
+  SafeAreaView,
+  ScrollView,
+  View,
+  Text,
+  Alert,
+  RefreshControl,
+} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { Header } from '../../../../components/Header';
 
@@ -13,7 +20,7 @@ import { RectButton, TextInput } from 'react-native-gesture-handler';
 import { getToken, getUserid } from '../../../../services/auth';
 import Spinner from 'react-native-loading-spinner-overlay';
 
-const Feed = ({handleProfileAction}:any) => {
+const Feed = ({ handleProfileAction }: any) => {
   const [data, setData] = useState<Array<any>>([]);
 
   const styles = useThemeObject(feedStyles);
@@ -39,50 +46,51 @@ const Feed = ({handleProfileAction}:any) => {
   const onRefresh = async () => {
     setLoading(true);
     getData();
-  }
+  };
 
   const handleSubmit = async () => {
-
-    if(tweetText.split(' ').length < 3) {
+    if (tweetText.split(' ').length < 3) {
       return Alert.alert(
         'Ops!',
         'Digite ao menos três palavras para poder enviar!'
       );
     }
 
-    try {
-      setLoading(true);
-      api.authPost('/tweet', {
-        title: tweetText,
-        body: tweetText
-      }).finally(() => {
-        setTweetText('');
-        getData();
-      });
-    }  catch(error) {
-      console.log(error);
-      Alert.alert('Ops!', 'Houve um erro ao publicar! Tente novamente mais tarde!');
-    }
-  }
+    setLoading(true);
+    const tweets = await api.authPost('/tweet', {
+      title: '..',
+      body: tweetText,
+    });
 
-  const handleTweetAction= async (action:String, tweetId:any) => {
-    switch(action) {
+    setLoading(false);
+    if (!tweets) {
+      return Alert.alert(
+        'Ops!',
+        'Houve um erro ao publicar! Tente novamente mais tarde!'
+      );
+    }
+
+    setTweetText('');
+    getData();
+  };
+
+  const handleTweetAction = async (action: string, tweetId: any) => {
+    switch (action) {
       case 'expand':
-      break;
+        break;
       case 'delete':
         setLoading(true);
         api.authDelete(`/tweet/${tweetId}`).then(response => {
           getData();
         });
-      break;
+        break;
       default:
-        setLoading(true);
         api.authPost(`/tweet/${tweetId}/${action}`, {}).then(response => {
           getData();
         });
-      break;
+        break;
     }
-  }
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -93,23 +101,27 @@ const Feed = ({handleProfileAction}:any) => {
     <View style={styles.container}>
       <Header title="Últimos Tweets" />
       <SafeAreaView>
-        <ScrollView contentContainerStyle={styles.scrollView}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-          />
-        }>
+        <ScrollView
+          contentContainerStyle={styles.scrollView}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
           <Spinner
             visible={loading}
             textContent="Carregando..."
             textStyle={styles.formText}
           />
           <View style={styles.formContainer}>
-            <Text style={styles.formText}>
-              O que tem te deixado pistola?
-            </Text>
-            <TextInput style={styles.formInput} multiline={true} numberOfLines={4} maxLength={144} value={tweetText} onChangeText={text => setTweetText(text)} />
+            <Text style={styles.formText}>O que tem te deixado pistola?</Text>
+            <TextInput
+              style={styles.formInput}
+              multiline={true}
+              numberOfLines={4}
+              maxLength={144}
+              value={tweetText}
+              onChangeText={text => setTweetText(text)}
+            />
             <RectButton
               style={styles.button}
               onPress={() => {
@@ -119,12 +131,18 @@ const Feed = ({handleProfileAction}:any) => {
               <Text style={styles.buttonText}>Enviar</Text>
             </RectButton>
           </View>
-          {data && (data.map((post,index) => (
-            <Tweet key={`post_${index}`} post={post} handleProfileAction={handleProfileAction} executeAction={handleTweetAction} loading={loading} userId={userId} />
-          )))}
-          {!data && (
-            <Text>Nenhum tweet encontrado</Text>
-          )}
+          {data &&
+            data.map((post, index) => (
+              <Tweet
+                key={`post_${index}`}
+                post={post}
+                handleProfileAction={handleProfileAction}
+                executeAction={handleTweetAction}
+                loading={loading}
+                userId={userId}
+              />
+            ))}
+          {!data && <Text>Nenhum tweet encontrado</Text>}
         </ScrollView>
       </SafeAreaView>
     </View>

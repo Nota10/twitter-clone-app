@@ -31,16 +31,20 @@ export const tweetStyles = (theme: Theme) => {
     },
     textUserName: {
       fontWeight: 'bold',
-      fontSize: 20,
+      fontSize: 15,
       color: theme.colors.common.white,
     },
-    textUserTag: { fontSize: 18, color: theme.colors.secondary.light },
+    textUserTag: { fontSize: 15, color: theme.colors.secondary.light },
     textBody: {
-      fontSize: 18,
+      fontSize: 15,
       color: theme.colors.common.white,
-      marginBottom: 5,
+      marginVertical: 5,
     },
-    textHashtags: { fontSize: 18, color: theme.colors.primary.main },
+    textHashtags: {
+      marginTop: 5,
+      fontSize: 15,
+      color: theme.colors.primary.main,
+    },
     iconsContainer: {
       flexDirection: 'row',
       width: '80%',
@@ -48,8 +52,8 @@ export const tweetStyles = (theme: Theme) => {
       justifyContent: 'space-between',
     },
     iconText: {
-      color: theme.colors.common.white
-    }
+      color: theme.colors.common.white,
+    },
   });
 
   return styles;

@@ -36,6 +36,8 @@ export function SignIn() {
   const [isLoading, setIsLoading] = useState(false);
 
   const submitLogin = async (email: string, password: string) => {
+    email = email.toLowerCase();
+
     try {
       setIsLoading(true);
       const { data } = await api.post('/auth/login', { email, password });
@@ -44,8 +46,11 @@ export function SignIn() {
       onSignIn(data);
       navigation.navigate('Main');
     } catch (error) {
-      console.log(error);
-      showAlert('Erro', 'Houve um erro ao enviar as informações, tente novamenta mais tarde');
+      console.log(error.response);
+      showAlert(
+        'Erro',
+        'Houve um erro ao enviar as informações, tente novamenta mais tarde'
+      );
     } finally {
       setIsLoading(false);
     }
@@ -68,7 +73,6 @@ export function SignIn() {
           onChangeText={text => setEmail(text)}
           placeholder="email@dominio.com"
           placeholderTextColor={theme.colors.secondary.main}
-          defaultValue={email}
           autoCompleteType="email"
         />
         <Text style={styles.inputLabel}>Senha</Text>
@@ -78,7 +82,6 @@ export function SignIn() {
           placeholder="Sua senha"
           placeholderTextColor={theme.colors.secondary.main}
           autoCompleteType="password"
-          defaultValue={password}
           secureTextEntry={true}
         />
       </View>

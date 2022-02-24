@@ -29,7 +29,7 @@ export const exploreStyles = (theme: Theme) => {
       alignItems: 'flex-start',
       justifyContent: 'flex-start',
       backgroundColor: theme.colors.secondary.dark,
-      margin: '5%'
+      margin: '5%',
     },
     formText: {
       justifyContent: 'flex-start',
@@ -41,8 +41,8 @@ export const exploreStyles = (theme: Theme) => {
       justifyContent: 'flex-start',
       alignItems: 'center',
       color: theme.colors.common.white,
-      fontSize: 20,
-      opacity: 0.5
+      fontSize: 15,
+      opacity: 0.5,
     },
     formInput: {
       marginVertical: 12,
@@ -54,15 +54,15 @@ export const exploreStyles = (theme: Theme) => {
       color: theme.colors.common.white,
       fontSize: 20,
       padding: 10,
-      textAlignVertical: 'top'
+      textAlignVertical: 'top',
     },
     scrollView: {
       width: '100%',
       alignContent: 'center',
       justifyContent: 'center',
       backgroundColor: theme.colors.secondary.dark,
-      paddingBottom: 100
-    }
+      paddingBottom: 100,
+    },
   });
   return styles;
 };

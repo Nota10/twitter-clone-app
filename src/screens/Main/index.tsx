@@ -6,11 +6,10 @@ import {
   DrawerItem,
   DrawerItemList,
 } from '@react-navigation/drawer';
-import { AntDesign, Ionicons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
 // Screens
 import { Home } from './home';
-import { Profile } from './Profile';
 import { useNavigation } from '@react-navigation/native';
 import { useThemeContext } from '../../contexts/ThemeContext';
 import { PURPLE_THEME_ID } from '../../global/colors/purple.theme';
@@ -19,7 +18,7 @@ import { mainStyles } from './styles';
 import { useThemeObject } from '../../hooks/theme.hook';
 import { Alert, View } from 'react-native';
 import { GRAY_THEME_ID } from '../../global/colors/gray.theme';
-import { onSignIn, onSignOut } from '../../services/auth';
+import { onSignOut } from '../../services/auth';
 import { PublicProfile } from './PublicProfile';
 
 const Drawer = createDrawerNavigator();
@@ -31,8 +30,8 @@ export function Main() {
   const { theme, toggleTheme } = useThemeContext();
 
   const handleProfileAction = (userId: object | undefined) => {
-    navigation.navigate('Profile', {userId: userId})
-  }
+    navigation.navigate('Profile', { userId: userId });
+  };
 
   const signOut = () => {
     Alert.alert(
@@ -51,12 +50,12 @@ export function Main() {
           style: 'default',
           onPress: () => {
             onSignOut();
-            navigation.navigate("SignIn");
+            navigation.navigate('SignIn');
           },
         },
       ]
     );
-  }
+  };
 
   return (
     <Drawer.Navigator
@@ -86,7 +85,7 @@ export function Main() {
               label="Sair"
               activeTintColor={theme.colors.secondary.dark}
               activeBackgroundColor={theme.colors.secondary.main}
-              labelStyle={{fontSize: 22, color: theme.colors.common.white}}
+              labelStyle={{ fontSize: 22, color: theme.colors.common.white }}
               onPress={() => signOut()}
             />
             <View style={styles.items}>
@@ -124,7 +123,13 @@ export function Main() {
             />
           ),
         }}
-        children={() => <Home handleProfileAction={(userId) => {handleProfileAction(userId)}}/>}
+        children={() => (
+          <Home
+            handleProfileAction={userId => {
+              handleProfileAction(userId);
+            }}
+          />
+        )}
       />
       {/* <Drawer.Screen
         name="Profile"
@@ -156,7 +161,7 @@ export function Main() {
             />
           ),
         }}
-        initialParams={{userId:null}}
+        initialParams={{ userId: null }}
         component={PublicProfile}
       />
     </Drawer.Navigator>

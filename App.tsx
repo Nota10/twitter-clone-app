@@ -7,6 +7,7 @@ import { SignIn } from './src/screens/SignIn';
 import { Main } from './src/screens/Main';
 import { ThemeProvider } from './src/contexts/ThemeContext';
 import { PURPLE_THEME } from './src/global/colors/purple.theme';
+import { BLUE_THEME } from './src/global/colors/blue.theme';
 
 import { enableScreens } from 'react-native-screens';
 import { NavigationContainer } from '@react-navigation/native';
@@ -17,8 +18,6 @@ import { isSignedIn } from './src/services/auth';
 enableScreens();
 const Stack = createStackNavigator();
 
-//export default function App() {
-  //return (
 const App = () => {
   const [signed, setSigned] = useState(false);
   const [signLodaded, setSignedLoaded] = useState(false);
@@ -30,11 +29,10 @@ const App = () => {
         setSignedLoaded(true);
       })
       .catch(err => console.log(err));
-  }, [])
+  }, []);
 
-  return (!signLodaded) ? null : 
-    (
-      <ThemeProvider initialValue={PURPLE_THEME}>
+  return !signLodaded ? null : (
+    <ThemeProvider initialValue={BLUE_THEME}>
       <StatusBar
         barStyle="light-content"
         backgroundColor="transparent"
@@ -46,7 +44,7 @@ const App = () => {
           screenOptions={{
             headerShown: false,
           }}
-          initialRouteName={signed ? "Main" : "SignIn"}
+          initialRouteName={signed ? 'Main' : 'SignIn'}
         >
           <Stack.Screen
             name="Welcome"
@@ -58,8 +56,8 @@ const App = () => {
           <Stack.Screen name="Main" component={Main} />
         </Stack.Navigator>
       </NavigationContainer>
-      </ThemeProvider>
-    )
-}
+    </ThemeProvider>
+  );
+};
 
 export default App;

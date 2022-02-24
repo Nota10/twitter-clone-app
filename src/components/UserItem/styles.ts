@@ -16,7 +16,7 @@ export const userItemStyle = (theme: Theme) => {
     closeIcon: {
       position: 'absolute',
       top: 0,
-      right: 0
+      right: 0,
     },
     container: {
       flexDirection: 'row',
@@ -36,16 +36,16 @@ export const userItemStyle = (theme: Theme) => {
     },
     textUserName: {
       fontWeight: 'bold',
-      fontSize: 20,
+      fontSize: 15,
       color: theme.colors.common.white,
     },
-    textUserTag: { fontSize: 18, color: theme.colors.secondary.light },
+    textUserTag: { fontSize: 15, color: theme.colors.secondary.light },
     textBody: {
-      fontSize: 18,
+      fontSize: 15,
       color: theme.colors.common.white,
-      marginBottom: 5,
+      marginVertical: 5,
     },
-    textHashtags: { fontSize: 18, color: theme.colors.primary.main },
+    textHashtags: { fontSize: 15, color: theme.colors.primary.main },
     iconsContainer: {
       flexDirection: 'row',
       width: '80%',
